@@ -1,0 +1,372 @@
+0 tbl 3 NGÂN HÀNG NHÀ NƯỚC VIỆT NAMBỘ GIÁO DỤC VÀ ĐÀO TẠOTRƯỜNG ĐẠI HỌC NGÂN HÀNG THÀNH PHỐ HỒ CHÍ MINHKHOA HỆ THỐNG THÔNG TIN QUẢN LÝ----------TIỂU LUẬN MÔN HỌC: NHẬP MÔN NGÀNHHỆ THỐNG THÔNG TIN QUẢN LÝ ĐỀ TÀI:PHÂN TÍCH VÀ XÂY DỰNG HỆ TH
+  1 
+  2 LỜI CAM ĐOAN
+  3 Tôi cam đoan đồ án “Hệ thống hỗ trợ ra quyết định dựa trên phân tích giỏ hàng trong thương mại điện tử” là công trình do tôi thực hiện 
+   [['', 'NGÂN HÀNG NHÀ NƯỚC VIỆT NAM', 'BỘ GIÁO DỤC VÀ ĐÀO TẠO'], ['', 'TRƯỜNG ĐẠI HỌC NGÂN HÀNG THÀNH PHỐ HỒ CHÍ MINHKHOA HỆ THỐNG THÔNG TIN QUẢN LÝ----------']]
+118 p 0 DANH MỤC TỪ VIẾT TẮT
+120 tbl 0 Từ viết tắtDiễn giảiDSSDecision Support System – Hệ thống hỗ trợ ra quyết địnhMBAMarket Basket Analysis – Phân tích giỏ hàngCSVComma Separated Values – Tệp dữ liệu phân tách bằng dấu phẩyDBMSDatabase Management System – Hệ quản tr
+  117 
+  118 DANH MỤC TỪ VIẾT TẮT
+  119 Danh mục thuật ngữ và từ viết tắt
+  121 
+  122 DANH MỤC BẢNG
+  123 Bảng 2.1. So sánh các phương án phân tích6
+   [['', 'Từ viết tắt', 'Diễn giải'], ['DSS', 'Decision Support System – Hệ thống hỗ trợ ra quyết định']]
+122 p 0 DANH MỤC BẢNG
+123 p 0 Bảng 2.1. So sánh các phương án phân tích6
+125 p 0 DANH MỤC HÌNH
+126 p 0 Hình 3.1. Sơ đồ use case14
+127 p 0 Hình 3.2. Kiến trúc xử lý của hệ thống23
+128 p 0 Hình 3.3. Quan hệ giữa các thực thể nghiệp vụ24
+129 p 0 Hình 3.4. Mô hình ERD26
+130 p 0 Hình 4.1. Bố cục giao diện và thanh điều hướng của hệ thống.29
+131 p 0 Hình 4.2. Giao diện chức năng phân tích luật kết hợp.37
+132 p 0 Hình 4.3. Khu vực thiết lập tham số phân tích luật kết hợp.37
+133 p 0 Hình 4.4. Thống kê tổng quan và kết quả phân tích luật kết hợp.39
+134 p 0 Hình 4.5. Giao diện chức năng gợi ý sản phẩm.41
+135 p 0 Hình 4.6. Tìm kiếm và lựa chọn nhóm sản phẩm cho giỏ hàng mô phỏng.42
+136 p 0 Hình 4.7. Thiết lập các ngưỡng tạo gợi ý.43
+137 p 0 Hình 4.8. Kết quả gợi ý theo giỏ hàng mô phỏng.44
+138 p 0 Hình 4.9. Thông báo khi không có đề xuất phù hợp với giỏ hàng.46
+139 p 0 Hình 4.10. Giao diện chức năng phân khúc khách hàng.47
+140 p 0 Hình 4.11. Lựa chọn bộ dữ liệu, ngày phân tích và điều kiện lọc khách hàng.48
+141 p 0 Hình 4.12. Thống kê tổng quan và phân bố khách hàng theo phân khúc.51
+142 p 0 Hình 4.13. Danh sách khách hàng và kết quả chấm điểm phân khúc.52
+143 p 0 Hình 4.14. Hướng dẫn chấm điểm và quy tắc phân nhóm khách hàng.53
+144 p 0 Hình 4.15. Giao diện quản lý bộ dữ liệu.54
+145 p 0 Hình 4.16. Giao diện quản lý tài khoản.56
+146 p 0 Hình 4.17. Biểu mẫu cập nhật thông tin cá nhân và cửa hàng.57
+147 p 0 Hình 4.18. Giao diện thay đổi mật khẩu.58
+148 p 0 Hình 4.19. Khu vực xác nhận xóa tài khoản.59
+201 p 0 Bảng 2.1. So sánh các phương án phân tích
+202 tbl 0 Phương ánPhạm viĐặc điểmĐếm cặp SQLMột mục ⇒ một mụcĐang có trong mã nguồnAprioriTập mục nhiều phần tửSinh ứng viên và cắt tỉa [1]FP-GrowthTập mục nhiều phần tửKhai phá cây điều kiện [2]
+  199 Mã nguồn hiện có dùng SQL đếm từng danh mục và từng cặp danh mục, sau đó sinh hai chiều luật. Cách này phù hợp phạm vi luật một mục ⇒ m
+  200 Khi mở rộng tập mục nhiều phần tử, có thể đánh giá FP-Growth trong Python và dùng Apriori làm phương án đối chiếu. Cần giữ nguyên định 
+  201 Bảng 2.1. So sánh các phương án phân tích
+  203 
+  204 2.5. Mô hình RFM
+  205 RFM là mô hình phân tích khách hàng dựa trên ba khía cạnh của lịch sử giao dịch: Recency, Frequency và Monetary. Mô hình hỗ trợ nhận di
+   [['', 'Phương án', 'Phạm vi', 'Đặc điểm'], ['Đếm cặp SQL', 'Một mục ⇒ một mục', 'Đang có trong mã nguồn']]
+269 p 1 1
+  266 Tác nhân chính là người dùng đã xác thực. Các ca sử dụng xoay quanh quản lý bộ dữ liệu, nhập liệu, tra cứu, xem thống kê và phân tích. 
+  267 3.5.1. Sơ đồ Use Case tổng quát
+  268 Sơ đồ Use Case tổng quát của Web Analyst được trình bày tại Hình 3.1.
+  270 Hình 3.1. Sơ đồ use case
+  271 3.5.2. Đặc tả các Use Case chính
+  272 a. Đăng ký tài khoản
+270 p 0 Hình 3.1. Sơ đồ use case
+395 p 1 
+  392 Kiến trúc hiện tại gồm lớp giao diện Blade, lớp điều phối controller và FormRequest, lớp dịch vụ nghiệp vụ cùng lớp dữ liệu quan hệ. Da
+  393 Kiến trúc mở rộng bổ sung hàng đợi và worker Python sau lớp dịch vụ. Worker chỉ nhận dữ liệu thuộc phiên được cấp phép và trả kết quả t
+  394 
+  396 Hình 3.2. Kiến trúc xử lý của hệ thống
+  397 3.9. Thiết kế cơ sở dữ liệu
+  398 Cơ sở dữ liệu của hệ thống được thiết kế theo mô hình quan hệ, gồm các nhóm thực thể quản lý tài khoản và bộ dữ liệu, lưu trữ dữ liệu k
+396 p 0 Hình 3.2. Kiến trúc xử lý của hệ thống
+401 p 1 
+  398 Cơ sở dữ liệu của hệ thống được thiết kế theo mô hình quan hệ, gồm các nhóm thực thể quản lý tài khoản và bộ dữ liệu, lưu trữ dữ liệu k
+  399 3.9.1. Sơ đồ thực thể – liên kết
+  400 Một người dùng sở hữu nhiều bộ dữ liệu. Trong từng bộ dữ liệu, một khách hàng có thể liên kết với nhiều đơn hàng; một đơn có nhiều dòng
+  402 Hình 3.3. Quan hệ giữa các thực thể nghiệp vụ
+  403 3.9.2. Mô tả các thực thể trong ERD
+  404 Các thực thể được mô tả dưới dạng tên bảng và danh sách thuộc tính. Ký hiệu PK chỉ khóa chính, FK chỉ khóa ngoại; các thuộc tính cùng đ
+402 p 0 Hình 3.3. Quan hệ giữa các thực thể nghiệp vụ
+417 p 0 Bảng migrations (id [PK], migration, batch) phục vụ quản lý phiên bản cấu trúc cơ sở dữ liệu của Laravel và không được đưa vào sơ đồ ERD nghiệp vụ.
+421 p 1 
+  418 3.9.3. Mô hình ERD
+  419 Mô hình ERD thể hiện các thực thể, thuộc tính và mối quan hệ trong hệ thống. Một người dùng có thể sở hữu nhiều bộ dữ liệu. Trong mỗi b
+  420 Các kết quả khai phá luật kết hợp, gợi ý sản phẩm và phân khúc khách hàng được lưu theo từng bộ dữ liệu. Những quan hệ tham chiếu đến k
+  422 Hình 3.4. Mô hình ERD
+  423 3.10. Thiết kế giao diện
+  424 Giao diện hệ thống được thiết kế gồm các nhóm chức năng: tài khoản, quản lý bộ dữ liệu, quản lý dữ liệu nghiệp vụ, Dashboard, luật kết 
+422 p 0 Hình 3.4. Mô hình ERD
+443 p 1 
+  440 Hệ thống: gồm Dữ liệu và Tài khoản, cho phép quản lý bộ dữ liệu và thông tin tài khoản. Nút Đăng xuất được bố trí ở phía dưới thanh điề
+  441 Vùng nội dung bên phải thay đổi theo chức năng được lựa chọn. Mỗi trang hiển thị tiêu đề, các thành phần thao tác và kết quả tương ứng 
+  442 Cách tổ chức giao diện này giúp người dùng tiếp cận các chức năng theo từng nhóm nghiệp vụ, đồng thời dành phần lớn không gian màn hình
+  444 
+  445 Hình 4.1. Bố cục giao diện và thanh điều hướng của hệ thống.
+  446 4.3. Xây dựng chức năng nhập và hiển thị dữ liệu
+445 p 0 Hình 4.1. Bố cục giao diện và thanh điều hướng của hệ thống.
+452 p 1 
+  449 Quy trình nhập gồm các bước: xác định bộ dữ liệu, kiểm tra tệp tải lên, đọc và kiểm tra tiêu đề, chuẩn hóa giá trị, kiểm tra tính hợp l
+  450 4.3.1. Tạo và quản lý bộ dữ liệu
+  451 Hệ thống sử dụng bộ dữ liệu để phân chia dữ liệu nghiệp vụ của từng người dùng. Mỗi bộ dữ liệu có mã định danh dataset_id và được liên 
+  453 DatasetController đảm nhiệm việc hiển thị danh sách, tạo mới và lựa chọn bộ dữ liệu. Khi truy cập trang quản lý, người dùng chỉ nhận đư
+  454 Trước khi ghi dữ liệu, các controller nhập gọi phương thức resolve() của dịch vụ DatasetContext. Việc xác định bộ dữ liệu được thực hiệ
+  455 Kiểm tra dataset_id trong yêu cầu; nếu được cung cấp, giá trị phải là số nguyên lớn hơn hoặc bằng 1.
+466 tbl 0 Định dạngCách xử lýCSVĐọc bằng fgetcsv(), sử dụng dấu phẩy để phân tách các trường.TSVĐọc bằng fgetcsv(), sử dụng ký tự tab để phân tách các trường.XLSX, XLS, ODSSử dụng bộ đọc tương ứng của thư viện PhpSpreadsheet và kiểm tra khả
+  463 Người dùng thực hiện nhập dữ liệu tại trang tương ứng với từng nhóm thông tin. Biểu mẫu sử dụng phương thức POST, kiểu mã hóa multipart
+  464 Cả năm luồng nhập đều yêu cầu có tệp tải lên, cho phép các phần mở rộng csv, tsv, xlsx, xls, ods và giới hạn dung lượng ở mức 51.200 KB
+  465 Dịch vụ OrderFileReader xử lý tệp theo từng định dạng:
+  467 
+  468 Đối với tệp bảng tính, hệ thống chỉ đọc trang tính đầu tiên. Nếu phát hiện ô chứa công thức, quá trình nhập bị từ chối và thông báo chỉ
+  469 Mặc dù dịch vụ trả dữ liệu theo từng dòng, đối với tệp bảng tính, thư viện vẫn tải bảng tính bằng phương thức load(). Vì vậy, cơ chế nà
+   [['', 'Định dạng', 'Cách xử lý'], ['', 'CSV', 'Đọc bằng fgetcsv(), sử dụng dấu phẩy để phân tách các trường.']]
+471 p 1 
+  468 Đối với tệp bảng tính, hệ thống chỉ đọc trang tính đầu tiên. Nếu phát hiện ô chứa công thức, quá trình nhập bị từ chối và thông báo chỉ
+  469 Mặc dù dịch vụ trả dữ liệu theo từng dòng, đối với tệp bảng tính, thư viện vẫn tải bảng tính bằng phương thức load(). Vì vậy, cơ chế nà
+  470 Sau khi lưu , bảng dữ liệu hiển thị tối đa 100 bản ghi đã lưu trong bộ dữ liệu đang chọn, còn các chỉ số tổng quan được tính trên toàn 
+  472 4.3.3. Kiểm tra cấu trúc và tính hợp lệ
+  473 Kiểm tra tiêu đề và cấu trúc tệp
+  474 Dòng đầu tiên được sử dụng làm tiêu đề. Hệ thống loại bỏ khoảng trắng ở đầu và cuối tên cột, đồng thời loại bỏ ký tự BOM UTF-8 ở đầu tê
+483 tbl 0 Nhóm dữ liệuQuy tắc kiểm traKhách hàngcustomer_id và customer_unique_id bắt buộc, tối đa 50 ký tự. Tiền tố mã bưu chính là số nguyên từ 0 đến 99.999 nếu có. Thành phố tối đa 100 ký tự; mã bang gồm đúng hai chữ cái.Sản phẩmproduct_
+  480 Một số trường được xử lý bổ sung. Chẳng hạn, ở luồng sản phẩm, các giá trị như 3.0 hoặc 3.00 được chuẩn hóa thành 3 đối với các thuộc t
+  481 Kiểm tra theo từng nhóm dữ liệu
+  482 Các quy tắc chính được áp dụng như sau:
+  484 
+  485 Các trường thập phân nói trên có giá trị tối đa 99.999.999,99. Việc kiểm tra được thực hiện bằng Laravel Validator; khi một dòng không 
+  486 Kiểm tra quan hệ tham chiếu
+   [['', 'Nhóm dữ liệu', 'Quy tắc kiểm tra'], ['', 'Khách hàng', 'customer_id và customer_unique_id bắt buộc, tối đa 50 ký tự. Tiền tố mã bưu chính là số ng']]
+501 tbl 0 Nhóm dữ liệuKhóa dùng để phát hiện trùngKhách hàngcustomer_idSản phẩmproduct_idĐơn hàngorder_idChi tiết đơn hàngCặp order_id và order_item_idThanh toánCặp order_id và payment_sequential
+  498 Sau khi giao dịch thành công, hệ thống chuyển về trang dữ liệu tương ứng và hiển thị số bản ghi đã lưu, chẳng hạn: “Đã lưu 1.200 sản ph
+  499 4.3.5. Xử lý lỗi, dữ liệu trùng và lịch sử nhập
+  500 Hệ thống phát hiện dữ liệu trùng theo khóa nhận diện của từng nhóm và giới hạn việc kiểm tra trong bộ dữ liệu đang nhập.
+  502 Trong mỗi lô, hệ thống lưu khóa nhận diện cùng số dòng để phát hiện trùng giữa các dòng đang xử lý. Trước khi chèn, hệ thống tiếp tục t
+  503 Chức năng hiện tại thực hiện thêm mới dữ liệu. Khi gặp khóa trùng, hệ thống từ chối lần nhập; không tự động cập nhật, ghi đè hoặc bỏ qu
+  504 Các lỗi được chủ động kiểm tra gồm: thiếu tệp, phần mở rộng không được hỗ trợ, tệp vượt giới hạn, không đọc được bảng tính, ô chứa công
+   [['', 'Nhóm dữ liệu', 'Khóa dùng để phát hiện trùng'], ['', 'Khách hàng', 'customer_id']]
+514 p 0 Hình 4.2. Giao diện chức năng phân tích luật kết hợp.
+518 tbl 0 Thành phầnCách hoạt độngBộ dữ liệuHiển thị các bộ dữ liệu thuộc tài khoản đang đăng nhập. Khi thay đổi lựa chọn, trang chuyển sang bộ dữ liệu tương ứng.Support tối thiểu (%)Thiết lập mức phổ biến tối thiểu của cặp danh mục, mặc đị
+  515 Trên màn hình lớn, các trường thiết lập được bố trí theo hàng ngang. Khi chiều rộng màn hình giảm, các trường được chuyển xuống nhiều h
+  516 4.4.2. Lựa chọn bộ dữ liệu và nhập tham số
+  517 Khu vực thiết lập gồm danh sách chọn bộ dữ liệu, ba ô nhập ngưỡng và nút “Phân tích”.
+  519 [Chèn ảnh khu vực chọn bộ dữ liệu và nhập ngưỡng tại đây]
+  520 Hình 4.3. Khu vực thiết lập tham số phân tích luật kết hợp.
+  521 Các trường số có giới hạn ngay trên giao diện. Phía máy chủ tiếp tục kiểm tra bằng AssociationRuleRequest: Support từ 0,01% đến 100%, C
+   [['', 'Thành phần', 'Cách hoạt động'], ['', 'Bộ dữ liệu', 'Hiển thị các bộ dữ liệu thuộc tài khoản đang đăng nhập. Khi thay đổi lựa chọn, trang chuyể']]
+520 p 0 Hình 4.3. Khu vực thiết lập tham số phân tích luật kết hợp.
+537 tbl 0 Chỉ sốNội dungGiỏ hàng hợp lệSố đơn còn ít nhất một danh mục hợp lệ sau bước xử lý dữ liệu.Số danh mục hợp lệSố danh mục khác nhau được sử dụng trong phân tích.Luật đạt ngưỡngTổng số luật thỏa mãn các điều kiện đã thiết lập.
+  534 Phạm vi triển khai hiện tại là luật một danh mục dẫn đến một danh mục. Vì vậy, kết quả thể hiện mối liên hệ giữa các danh mục sản phẩm,
+  535 4.4.4. Hiển thị thống kê và bảng kết quả
+  536 Sau khi phân tích, hệ thống chuyển về trang kết quả. Phía trên bảng hiển thị ba chỉ số tổng quan:
+  538 Trong giao diện hiện tại, chỉ số thứ hai đang mang nhãn “Tên sản phẩm”, trong khi dữ liệu xử lý thực tế là danh mục sản phẩm. Khi trình
+  539 Hình 4.4. Thống kê tổng quan và kết quả phân tích luật kết hợp.
+  540 Bảng kết quả được đặt dưới tiêu đề “Nếu mua A → thường mua B”, gồm các cột:
+   [['', 'Chỉ số', 'Nội dung'], ['', 'Giỏ hàng hợp lệ', 'Số đơn còn ít nhất một danh mục hợp lệ sau bước xử lý dữ liệu.']]
+539 p 0 Hình 4.4. Thống kê tổng quan và kết quả phân tích luật kết hợp.
+540 p 0 Bảng kết quả được đặt dưới tiêu đề “Nếu mua A → thường mua B”, gồm các cột:
+541 tbl 0 CộtNội dung hiển thịMua ADanh mục ở vế trái của luật.Mua thêm BDanh mục ở vế phải, có ký hiệu mũi tên thể hiện chiều của luật.Giỏ mua cùngSố giỏ chứa đồng thời hai danh mục.SupportTỷ lệ giỏ chứa cả hai danh mục trên tổng giỏ hợp l
+  538 Trong giao diện hiện tại, chỉ số thứ hai đang mang nhãn “Tên sản phẩm”, trong khi dữ liệu xử lý thực tế là danh mục sản phẩm. Khi trình
+  539 Hình 4.4. Thống kê tổng quan và kết quả phân tích luật kết hợp.
+  540 Bảng kết quả được đặt dưới tiêu đề “Nếu mua A → thường mua B”, gồm các cột:
+  542 Support và Confidence được hiển thị dưới dạng phần trăm với hai chữ số thập phân. Lift cũng được làm tròn đến hai chữ số thập phân và đ
+  543 Các luật được sắp xếp theo Lift giảm dần, tiếp theo là Confidence và số giỏ mua cùng giảm dần. Cách sắp xếp này đưa các luật có mức liê
+  544 Bảng được phân trang với 25 luật mỗi trang. Các liên kết chuyển trang giữ nguyên bộ dữ liệu đang chọn. Khác với những trang hiển thị dữ
+   [['', 'Cột', 'Nội dung hiển thị'], ['', 'Mua A', 'Danh mục ở vế trái của luật.']]
+544 p 0 Bảng được phân trang với 25 luật mỗi trang. Các liên kết chuyển trang giữ nguyên bộ dữ liệu đang chọn. Khác với những trang hiển thị dữ liệu nhập chỉ giới hạn 100 dòng, trang luật kết hợp có điều khiển phân trang để duyệt kết quả.
+558 p 1 
+  555 4.5.1. Xây dựng giao diện gợi ý sản phẩm
+  556 Giao diện gồm hai khu vực chính: tạo giỏ hàng mô phỏng và hiển thị đề xuất. Phía đầu trang là tiêu đề “Gợi ý sản phẩm”, kèm mô tả hướng
+  557 Khu vực tạo giỏ chứa ô tìm kiếm, danh sách lựa chọn dạng checkbox, phần thiết lập ngưỡng và các nút thao tác. Khu vực kết quả được đặt 
+  559 Hình 4.5. Giao diện chức năng gợi ý sản phẩm.
+  560 Các khu vực được đặt trong khối nền trắng, có đường viền và góc bo tròn. Trên màn hình lớn, danh sách lựa chọn được chia thành ba cột v
+  561 4.5.2. Tìm kiếm và tạo giỏ hàng mô phỏng
+559 p 0 Hình 4.5. Giao diện chức năng gợi ý sản phẩm.
+565 p 1 
+  562 Khi mở trang, hệ thống xác định bộ dữ liệu đang sử dụng thông qua DatasetContext và kiểm tra quyền sở hữu. Nếu tài khoản chưa có bộ dữ 
+  563 Danh sách có thể lựa chọn được lấy từ các danh mục xuất hiện trong giỏ hàng hợp lệ của bộ dữ liệu hiện tại. Vì vậy, danh sách này không
+  564 Người dùng nhập tên vào ô “Tìm sản phẩm” để thu hẹp danh sách, sau đó đánh dấu checkbox của các nhóm muốn đưa vào giỏ mô phỏng.
+  566 Hình 4.6. Tìm kiếm và lựa chọn nhóm sản phẩm cho giỏ hàng mô phỏng.
+  567 Việc tìm kiếm được thực hiện bằng JavaScript ngay trên danh sách đã tải về. Nội dung tìm kiếm được chuyển về chữ thường và loại bỏ dấu 
+  568 Giao diện hiển thị tối đa 20 lựa chọn khớp với nội dung tìm kiếm, đồng thời luôn giữ lại các mục đã chọn để người dùng dễ kiểm tra giỏ 
+566 p 0 Hình 4.6. Tìm kiếm và lựa chọn nhóm sản phẩm cho giỏ hàng mô phỏng.
+574 tbl 0 Tham sốGiá trị mặc địnhPhạm vi hợp lệSupport tối thiểu0,1%0,01%–100%Confidence tối thiểu20%0%–100%Lift tối thiểu10–1.000
+  571 4.5.3. Thiết lập ngưỡng và thực hiện gợi ý
+  572 Phần “Ngưỡng gợi ý” được xây dựng dưới dạng có thể mở rộng hoặc thu gọn. Cách bố trí này giúp giao diện tập trung vào thao tác chọn mặt
+  573 Các tham số gồm:
+  575 
+  576 
+  577 Hình 4.7. Thiết lập các ngưỡng tạo gợi ý.
+   [['', 'Tham số', 'Giá trị mặc định', 'Phạm vi hợp lệ'], ['', 'Support tối thiểu', '0,1%', '0,01%–100%']]
+576 p 1 
+  573 Các tham số gồm:
+  574 Tham sốGiá trị mặc địnhPhạm vi hợp lệSupport tối thiểu0,1%0,01%–100%Confidence tối thiểu20%0%–100%Lift tối thiểu10–1.000
+  575 
+  577 Hình 4.7. Thiết lập các ngưỡng tạo gợi ý.
+  578 Bên dưới biểu mẫu có hai nút thao tác:
+  579 NútChức năngGợi ýTính toán và thay thế kết quả theo giỏ hàng cùng các ngưỡng hiện tại.Làm mới giỏGửi yêu cầu với giỏ rỗng, xóa lựa chọn
+577 p 0 Hình 4.7. Thiết lập các ngưỡng tạo gợi ý.
+579 tbl 0 NútChức năngGợi ýTính toán và thay thế kết quả theo giỏ hàng cùng các ngưỡng hiện tại.Làm mới giỏGửi yêu cầu với giỏ rỗng, xóa lựa chọn và kết quả đã lưu, đưa các ngưỡng về giá trị mặc định.
+  576 
+  577 Hình 4.7. Thiết lập các ngưỡng tạo gợi ý.
+  578 Bên dưới biểu mẫu có hai nút thao tác:
+  580 Khi đầu vào không hợp lệ, hệ thống hiển thị danh sách lỗi phía trên biểu mẫu và giữ lại các lựa chọn đã nhập để người dùng điều chỉnh.
+  581 Việc thay đổi checkbox hoặc ngưỡng chưa tự động cập nhật kết quả. Người dùng cần nhấn “Gợi ý” để hệ thống thực hiện tính toán lại.
+  582 4.5.4. Xử lý và lựa chọn kết quả gợi ý
+   [['', 'Nút', 'Chức năng'], ['', 'Gợi ý', 'Tính toán và thay thế kết quả theo giỏ hàng cùng các ngưỡng hiện tại.']]
+594 p 1 
+  591 Cách xử lý hiện tại dựa trên từng danh mục đã chọn; hệ thống chưa tính một luật có toàn bộ giỏ nhiều danh mục làm vế trái và chưa cộng 
+  592 4.5.5. Hiển thị và giải thích đề xuất
+  593 Kết quả được trình bày trong khu vực “Đề xuất cho giỏ hàng của bạn”. Mỗi đề xuất là một thẻ riêng, gồm tên danh mục được gợi ý, lý do đ
+  595 Hình 4.8. Kết quả gợi ý theo giỏ hàng mô phỏng.
+  596 Nội dung của mỗi thẻ gồm:
+  597 Thành phầnNội dungTiêu đềTên danh mục được đề xuất mua thêm.Lý do gợi ýCho biết danh mục đã chọn nào tạo ra đề xuất và tỷ lệ Confidence
+595 p 0 Hình 4.8. Kết quả gợi ý theo giỏ hàng mô phỏng.
+597 tbl 0 Thành phầnNội dungTiêu đềTên danh mục được đề xuất mua thêm.Lý do gợi ýCho biết danh mục đã chọn nào tạo ra đề xuất và tỷ lệ Confidence tương ứng.SupportMức phổ biến của cặp danh mục trong dữ liệu giỏ hàng.LiftMức liên hệ của hai 
+  594 
+  595 Hình 4.8. Kết quả gợi ý theo giỏ hàng mô phỏng.
+  596 Nội dung của mỗi thẻ gồm:
+  598 Phần giải thích sử dụng cách diễn đạt trực tiếp: “Vì bạn đã chọn A: …% giỏ có mặt hàng này cũng có B”. Cách trình bày giúp người dùng b
+  599 Các giá trị Support, Confidence và Lift được hiển thị với hai chữ số thập phân. Giao diện hiển thị tối đa 10 đề xuất nên không sử dụng 
+  600 Cuối trang có liên kết đến chức năng luật kết hợp trong cùng bộ dữ liệu, cho phép người dùng xem thêm kết quả phân tích và cách đọc các
+   [['', 'Thành phần', 'Nội dung'], ['', 'Tiêu đề', 'Tên danh mục được đề xuất mua thêm.']]
+603 tbl 0 Trạng tháiCách phản hồiChưa có danh mục hợp lệHướng dẫn bổ sung dữ liệu bán hàng.Giỏ mô phỏng chưa có lựa chọnYêu cầu chọn mặt hàng rồi nhấn “Gợi ý”.Đã chọn nhưng không có đề xuất đạt ngưỡngGợi ý giảm ngưỡng hoặc lựa chọn mặt hàng
+  600 Cuối trang có liên kết đến chức năng luật kết hợp trong cùng bộ dữ liệu, cho phép người dùng xem thêm kết quả phân tích và cách đọc các
+  601 4.5.6. Xử lý trạng thái chưa có kết quả
+  602 Giao diện hiển thị thông báo phù hợp với từng trạng thái:
+  604 
+  605 Hình 4.9. Thông báo khi không có đề xuất phù hợp với giỏ hàng.
+  606 Các thông báo này giúp người dùng phân biệt giữa việc chưa tạo giỏ, thiếu dữ liệu nguồn và không có kết quả đáp ứng điều kiện.
+   [['', 'Trạng thái', 'Cách phản hồi'], ['', 'Chưa có danh mục hợp lệ', 'Hướng dẫn bổ sung dữ liệu bán hàng.']]
+604 p 1 
+  601 4.5.6. Xử lý trạng thái chưa có kết quả
+  602 Giao diện hiển thị thông báo phù hợp với từng trạng thái:
+  603 Trạng tháiCách phản hồiChưa có danh mục hợp lệHướng dẫn bổ sung dữ liệu bán hàng.Giỏ mô phỏng chưa có lựa chọnYêu cầu chọn mặt hàng rồi
+  605 Hình 4.9. Thông báo khi không có đề xuất phù hợp với giỏ hàng.
+  606 Các thông báo này giúp người dùng phân biệt giữa việc chưa tạo giỏ, thiếu dữ liệu nguồn và không có kết quả đáp ứng điều kiện.
+  607 4.5.7. Lưu trữ và cập nhật kết quả
+605 p 0 Hình 4.9. Thông báo khi không có đề xuất phù hợp với giỏ hàng.
+617 p 1 
+  614 4.6.1. Xây dựng giao diện phân khúc khách hàng
+  615 Giao diện gồm năm khu vực: biểu mẫu thiết lập phân tích, các chỉ số tổng quan, phân bố khách hàng, bảng chi tiết và phần giải thích quy
+  616 Đầu trang hiển thị tiêu đề “Phân khúc khách hàng”, kèm mô tả ngắn về ba tiêu chí được sử dụng: lần mua gần nhất, số đơn hàng và tổng th
+  618 Hình 4.10. Giao diện chức năng phân khúc khách hàng.
+  619 Trên màn hình lớn, biểu mẫu và các chỉ số tổng quan được bố trí theo ba cột; các thẻ phân khúc được chia thành hai cột. Khi chiều rộng 
+  620 4.6.2. Thiết lập phân tích và lọc danh sách
+618 p 0 Hình 4.10. Giao diện chức năng phân khúc khách hàng.
+622 tbl 0 Thành phầnChức năngBộ dữ liệuLựa chọn bộ dữ liệu thuộc tài khoản đang đăng nhập.Ngày phân tíchXác định mốc thời gian để tính toán hành vi mua hàng.Phân khúcGiới hạn bảng chi tiết theo một nhóm khách hàng.Tìm mã khách hàngTìm khách
+  619 Trên màn hình lớn, biểu mẫu và các chỉ số tổng quan được bố trí theo ba cột; các thẻ phân khúc được chia thành hai cột. Khi chiều rộng 
+  620 4.6.2. Thiết lập phân tích và lọc danh sách
+  621 Biểu mẫu đầu trang sử dụng phương thức GET, gồm các thành phần:
+  623 
+  624 Hình 4.11. Lựa chọn bộ dữ liệu, ngày phân tích và điều kiện lọc khách hàng.
+  625 Nếu để trống ngày phân tích, hệ thống sử dụng ngày mua mới nhất trong các đơn đủ điều kiện làm mốc. Cách xử lý này phù hợp với dữ liệu 
+   [['', 'Thành phần', 'Chức năng'], ['', 'Bộ dữ liệu', 'Lựa chọn bộ dữ liệu thuộc tài khoản đang đăng nhập.']]
+623 p 1 
+  620 4.6.2. Thiết lập phân tích và lọc danh sách
+  621 Biểu mẫu đầu trang sử dụng phương thức GET, gồm các thành phần:
+  622 Thành phầnChức năngBộ dữ liệuLựa chọn bộ dữ liệu thuộc tài khoản đang đăng nhập.Ngày phân tíchXác định mốc thời gian để tính toán hành 
+  624 Hình 4.11. Lựa chọn bộ dữ liệu, ngày phân tích và điều kiện lọc khách hàng.
+  625 Nếu để trống ngày phân tích, hệ thống sử dụng ngày mua mới nhất trong các đơn đủ điều kiện làm mốc. Cách xử lý này phù hợp với dữ liệu 
+  626 CustomerSegmentRequest kiểm tra ngày theo định dạng Y-m-d, mã phân khúc theo danh sách được hỗ trợ và nội dung tìm kiếm tối đa 100 ký t
+624 p 0 Hình 4.11. Lựa chọn bộ dữ liệu, ngày phân tích và điều kiện lọc khách hàng.
+639 tbl 0 Giá trịCách xác định trong hệ thốngR — số ngày từ lần mua gần nhấtKhoảng cách từ ngày mua cuối đến ngày phân tích.F — số đơn hàngTổng số đơn hợp lệ của khách hàng đến hết ngày phân tích.M — tổng thanh toánTổng giá trị thanh toán c
+  636 Đơn chưa có thanh toán vẫn được tính vào số đơn, với giá trị thanh toán đóng góp bằng 0.
+  637 Việc tổng hợp thanh toán theo đơn trước khi nối giúp tránh đếm một đơn thành nhiều lần khi đơn đó có nhiều khoản thanh toán.
+  638 Sau bước xử lý, mỗi khách hàng có ba giá trị chính:
+  640 4.6.4. Chấm điểm và phân nhóm khách hàng
+  641 Từ các giá trị đã tổng hợp, hệ thống quy đổi R, F và M về thang điểm từ 1 đến 5.
+  642 Điểm R được xác định theo khoảng thời gian từ lần mua cuối:
+   [['', 'Giá trị', 'Cách xác định trong hệ thống'], ['', 'R — số ngày từ lần mua gần nhất', 'Khoảng cách từ ngày mua cuối đến ngày phân tích.']]
+643 tbl 0 Số ngàyĐiểm RKhông quá 30 ngày531–60 ngày461–90 ngày391–180 ngày2Trên 180 ngày1
+  640 4.6.4. Chấm điểm và phân nhóm khách hàng
+  641 Từ các giá trị đã tổng hợp, hệ thống quy đổi R, F và M về thang điểm từ 1 đến 5.
+  642 Điểm R được xác định theo khoảng thời gian từ lần mua cuối:
+  644 Điểm F bằng số đơn đối với khách có từ 1 đến 4 đơn; khách có từ 5 đơn trở lên được 5 điểm.
+  645 Điểm M được xác định dựa trên các mốc phân vị 20%, 40%, 60% và 80% của tổng thanh toán trong tập khách hàng phân tích. Khách được tăng 
+  646 Hệ thống áp dụng các quy tắc phân nhóm theo thứ tự sau:
+   [['', 'Số ngày', 'Điểm R'], ['', 'Không quá 30 ngày', '5']]
+647 tbl 0 Phân khúcĐiều kiện điểmHướng chăm sóc hiển thịKhách hàng giá trị caoR ≥ 4, F ≥ 3, M ≥ 4Chăm sóc riêng và ưu đãi thành viên.Khách hàng trung thànhR ≥ 3, F ≥ 3Gợi ý mua thêm và chương trình tích điểm.Khách hàng mớiR ≥ 4, F = 1Chăm s
+  644 Điểm F bằng số đơn đối với khách có từ 1 đến 4 đơn; khách có từ 5 đơn trở lên được 5 điểm.
+  645 Điểm M được xác định dựa trên các mốc phân vị 20%, 40%, 60% và 80% của tổng thanh toán trong tập khách hàng phân tích. Khách được tăng 
+  646 Hệ thống áp dụng các quy tắc phân nhóm theo thứ tự sau:
+  648 Mỗi khách hàng thuộc nhóm đầu tiên thỏa mãn điều kiện. Ví dụ, khách đã được xếp vào nhóm giá trị cao sẽ không tiếp tục được tính vào nh
+  649 Các quy tắc được định nghĩa trong dịch vụ CustomerSegments; giao diện hiện tại chưa cung cấp chức năng chỉnh sửa ngưỡng phân nhóm.
+  650 4.6.5. Hiển thị chỉ số tổng quan và phân bố khách hàng
+   [['', 'Phân khúc', 'Điều kiện điểm', 'Hướng chăm sóc hiển thị'], ['', 'Khách hàng giá trị cao', 'R ≥ 4, F ≥ 3, M ≥ 4', 'Chăm sóc riêng và ưu đãi thành viên.']]
+657 p 1 
+  654 Khách hàng giá trị cao: số khách được xếp vào nhóm giá trị cao.
+  655 Giá trị tiền được hiển thị theo đơn vị của dữ liệu nguồn, không tự động quy đổi sang một loại tiền khác.
+  656 Bên dưới là khu vực “Phân bố khách hàng”. Mỗi phân khúc được trình bày bằng một thẻ, gồm tên nhóm, số khách, tỷ lệ trên tổng số khách p
+  658 Hình 4.12. Thống kê tổng quan và phân bố khách hàng theo phân khúc.
+  659 Tỷ trọng của mỗi nhóm được thể hiện bằng thanh ngang, giúp người dùng so sánh quy mô giữa các nhóm. Các hướng chăm sóc là nội dung hướn
+  660 Các chỉ số và thẻ phân bố luôn phản ánh toàn bộ khách hàng đủ điều kiện của bộ dữ liệu tại ngày phân tích. Bộ lọc phân khúc và tìm mã c
+658 p 0 Hình 4.12. Thống kê tổng quan và phân bố khách hàng theo phân khúc.
+662 p 0 Bảng chi tiết giúp người dùng xem căn cứ phân nhóm của từng khách hàng. Tiêu đề bảng hiển thị số kết quả phù hợp với các bộ lọc hiện tại.
+663 tbl 0 CộtNội dungMã khách hàngGiá trị customer_unique_id dùng để tổng hợp khách hàng.Lần mua gần nhấtNgày mua cuối trong phạm vi phân tích.R · số ngàySố ngày từ lần mua cuối đến ngày phân tích.F · số đơnSố đơn hợp lệ của khách hàng.M · 
+  660 Các chỉ số và thẻ phân bố luôn phản ánh toàn bộ khách hàng đủ điều kiện của bộ dữ liệu tại ngày phân tích. Bộ lọc phân khúc và tìm mã c
+  661 4.6.6. Hiển thị danh sách khách hàng theo phân khúc
+  662 Bảng chi tiết giúp người dùng xem căn cứ phân nhóm của từng khách hàng. Tiêu đề bảng hiển thị số kết quả phù hợp với các bộ lọc hiện tạ
+  664 
+  665 Hình 4.13. Danh sách khách hàng và kết quả chấm điểm phân khúc.
+  666 Mặc định, danh sách được sắp xếp theo tổng thanh toán giảm dần. Tìm kiếm được thực hiện theo một phần mã khách hàng và không phân biệt 
+   [['', 'Cột', 'Nội dung'], ['', 'Mã khách hàng', 'Giá trị customer_unique_id dùng để tổng hợp khách hàng.']]
+664 p 1 
+  661 4.6.6. Hiển thị danh sách khách hàng theo phân khúc
+  662 Bảng chi tiết giúp người dùng xem căn cứ phân nhóm của từng khách hàng. Tiêu đề bảng hiển thị số kết quả phù hợp với các bộ lọc hiện tạ
+  663 CộtNội dungMã khách hàngGiá trị customer_unique_id dùng để tổng hợp khách hàng.Lần mua gần nhấtNgày mua cuối trong phạm vi phân tích.R 
+  665 Hình 4.13. Danh sách khách hàng và kết quả chấm điểm phân khúc.
+  666 Mặc định, danh sách được sắp xếp theo tổng thanh toán giảm dần. Tìm kiếm được thực hiện theo một phần mã khách hàng và không phân biệt 
+  667 Bảng phân trang với 25 khách hàng mỗi trang. Liên kết chuyển trang giữ bộ dữ liệu, ngày phân tích và các điều kiện lọc để người dùng ti
+665 p 0 Hình 4.13. Danh sách khách hàng và kết quả chấm điểm phân khúc.
+667 p 0 Bảng phân trang với 25 khách hàng mỗi trang. Liên kết chuyển trang giữ bộ dữ liệu, ngày phân tích và các điều kiện lọc để người dùng tiếp tục xem mà không phải thiết lập lại.
+671 p 1 
+  668 Nếu không có khách hàng khớp bộ lọc, bảng hiển thị thông báo “Không có khách hàng phù hợp với bộ lọc”. Nếu toàn bộ tập phân tích không 
+  669 4.6.7. Giải thích quy tắc và lưu kết quả phân tích
+  670 Cuối trang là phần có thể mở rộng với tiêu đề “Cách tính RFM và quy tắc phân nhóm”. Khu vực này trình bày cách chấm điểm, thứ tự phân n
+  672 Hình 4.14. Hướng dẫn chấm điểm và quy tắc phân nhóm khách hàng.
+  673 Khi trang được xử lý, hệ thống tính kết quả theo bộ dữ liệu và ngày phân tích, sau đó lưu bản chụp kết quả vào bảng customer_segments. 
+  674 Việc lưu được thực hiện trước khi lọc và phân trang, nên bản chụp chứa toàn bộ khách hàng của lần phân tích. Nếu tính lại cùng bộ dữ li
+672 p 0 Hình 4.14. Hướng dẫn chấm điểm và quy tắc phân nhóm khách hàng.
+683 p 1 
+  680 Giao diện quản lý bộ dữ liệu
+  681 Khi chọn mục “Dữ liệu”, người dùng được chuyển đến đường dẫn /data. Trang hiển thị tiêu đề “Bộ dữ liệu của tôi”, biểu mẫu tạo mới và bả
+  682 Phía trên biểu mẫu có hướng dẫn chọn cùng một bộ dữ liệu khi nhập các nhóm dữ liệu liên quan. Nội dung này giúp người dùng duy trì đúng
+  684 Hình 4.15. Giao diện quản lý bộ dữ liệu.
+  685 Biểu mẫu tạo mới gồm ô “Tên bộ dữ liệu” và nút “Tạo bộ dữ liệu”. Bên dưới là bảng có ba cột:
+  686 CộtNội dungTên bộ dữ liệuTên do người dùng đặt khi tạo.Thời gian tạoHiển thị theo định dạng ngày/tháng/năm và giờ:phút.Trạng tháiCho bi
+684 p 0 Hình 4.15. Giao diện quản lý bộ dữ liệu.
+686 tbl 0 CộtNội dungTên bộ dữ liệuTên do người dùng đặt khi tạo.Thời gian tạoHiển thị theo định dạng ngày/tháng/năm và giờ:phút.Trạng tháiCho biết bộ đang được chọn và cung cấp nút lựa chọn.
+  683 
+  684 Hình 4.15. Giao diện quản lý bộ dữ liệu.
+  685 Biểu mẫu tạo mới gồm ô “Tên bộ dữ liệu” và nút “Tạo bộ dữ liệu”. Bên dưới là bảng có ba cột:
+  687 Tiêu đề bảng sử dụng nền xanh đậm, các dòng có màu nền xen kẽ và hiệu ứng khi đưa chuột vào để hỗ trợ quan sát. Bảng được đặt trong vùn
+  688 Tạo bộ dữ liệu
+  689 Người dùng nhập tên và nhấn “Tạo bộ dữ liệu”. Yêu cầu được gửi đến phương thức store() của DatasetController. Tên là trường bắt buộc, c
+   [['', 'Cột', 'Nội dung'], ['', 'Tên bộ dữ liệu', 'Tên do người dùng đặt khi tạo.']]
+699 p 1 
+  696 4.7.2. Giao diện quản lý tài khoản
+  697 Mục “Tài khoản” dẫn đến trang /profile. Đầu trang hiển thị tiêu đề “Tài khoản”, mô tả chức năng quản lý thông tin cửa hàng và bảo mật, 
+  698 Bên dưới là thông tin tóm tắt gồm tên cửa hàng và ngày tham gia. Nội dung chính được chia thành hai khối: “Thông tin tài khoản” và “Đổi
+  700 Hình 4.16. Giao diện quản lý tài khoản.
+  701 Trên màn hình lớn, hai biểu mẫu chính được đặt cạnh nhau để tận dụng không gian hiển thị. Khi chiều rộng nhỏ hơn 900 px, chúng chuyển t
+  702 Thông báo cập nhật thành công được hiển thị trong khối màu xanh phía trên các biểu mẫu, giúp người dùng nhận biết kết quả thao tác.
+700 p 0 Hình 4.16. Giao diện quản lý tài khoản.
+705 tbl 0 TrườngQuy tắc kiểm traHọ và tênBắt buộc, tối đa 100 ký tự.Tên cửa hàngBắt buộc, tối đa 150 ký tự.Email đăng nhậpBắt buộc, đúng định dạng email, sử dụng chữ thường, tối đa 120 ký tự và không trùng tài khoản khác.
+  702 Thông báo cập nhật thành công được hiển thị trong khối màu xanh phía trên các biểu mẫu, giúp người dùng nhận biết kết quả thao tác.
+  703 4.7.3. Cập nhật thông tin tài khoản
+  704 Khối “Thông tin tài khoản” cho phép chỉnh sửa ba thông tin:
+  706 Các ô nhập được điền sẵn thông tin hiện tại. Người dùng chỉnh sửa và nhấn “Lưu thay đổi” để gửi yêu cầu cập nhật đến ProfileController:
+  707 
+  708 Hình 4.17. Biểu mẫu cập nhật thông tin cá nhân và cửa hàng.
+   [['', 'Trường', 'Quy tắc kiểm tra'], ['', 'Họ và tên', 'Bắt buộc, tối đa 100 ký tự.']]
+707 p 1 
+  704 Khối “Thông tin tài khoản” cho phép chỉnh sửa ba thông tin:
+  705 TrườngQuy tắc kiểm traHọ và tênBắt buộc, tối đa 100 ký tự.Tên cửa hàngBắt buộc, tối đa 150 ký tự.Email đăng nhậpBắt buộc, đúng định dạn
+  706 Các ô nhập được điền sẵn thông tin hiện tại. Người dùng chỉnh sửa và nhấn “Lưu thay đổi” để gửi yêu cầu cập nhật đến ProfileController:
+  708 Hình 4.17. Biểu mẫu cập nhật thông tin cá nhân và cửa hàng.
+  709 ProfileUpdateRequest kiểm tra dữ liệu trước khi lưu. Việc kiểm tra email duy nhất bỏ qua chính tài khoản đang chỉnh sửa, cho phép người
+  710 Nếu thành công, hệ thống trở về trang tài khoản và hiển thị “Đã cập nhật thông tin tài khoản”. Nếu dữ liệu không hợp lệ, biểu mẫu giữ l
+708 p 0 Hình 4.17. Biểu mẫu cập nhật thông tin cá nhân và cửa hàng.
+714 p 1 
+  711 4.7.4. Thay đổi mật khẩu
+  712 Khối “Đổi mật khẩu” gồm ba trường: mật khẩu hiện tại, mật khẩu mới và xác nhận mật khẩu mới. Các trường sử dụng kiểu nhập mật khẩu để c
+  713 Người dùng điền đủ thông tin và nhấn “Đổi mật khẩu”. Hệ thống kiểm tra mật khẩu hiện tại có đúng hay không, mật khẩu mới có đáp ứng quy
+  715 Hình 4.18. Giao diện thay đổi mật khẩu.
+  716 Sau khi kiểm tra thành công, PasswordController sử dụng Hash::make() để băm mật khẩu mới và cập nhật vào trường password_hash. Hệ thống
+  717 Các lỗi như mật khẩu hiện tại không đúng hoặc xác nhận không khớp được hiển thị ngay dưới trường liên quan. Lỗi đổi mật khẩu được xử lý
+715 p 0 Hình 4.18. Giao diện thay đổi mật khẩu.
+724 p 1 
+  721 4.7.6. Xóa tài khoản và kiểm tra dữ liệu liên quan
+  722 Chức năng xóa tài khoản nằm cuối trang, được đặt trong khu vực có viền và tiêu đề màu đỏ. Nội dung mặc định được thu gọn; người dùng mở
+  723 Giao diện yêu cầu nhập mật khẩu hiện tại. Khi nhấn “Xóa tài khoản vĩnh viễn”, trình duyệt tiếp tục hiển thị hộp thoại xác nhận trước kh
+  725 Hình 4.19. Khu vực xác nhận xóa tài khoản.
+  726 Phía máy chủ kiểm tra mật khẩu và dữ liệu liên quan trước khi xóa. Nếu tài khoản còn sở hữu bộ dữ liệu, hệ thống từ chối và thông báo c
+  727 Nếu việc xóa thành công, hệ thống đăng xuất, hủy phiên làm việc, tạo lại mã CSRF và chuyển về trang chủ. Khi có lỗi, mục xóa tài khoản 
+725 p 0 Hình 4.19. Khu vực xác nhận xóa tài khoản.
+FIELDS
+Counter({'PAGEREF': 127, 'TOC': 3, 'SEQ': 1})
+ TOC \o "1-3" \h \z \u  14
+ TOC \h \z \t "Table Caption,1"  123
+ TOC \h \z \t "Figure Caption,1"  126

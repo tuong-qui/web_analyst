@@ -1,0 +1,727 @@
+0: 
+1: LỜI CAM ĐOAN
+2: Tôi cam đoan đồ án “Hệ thống hỗ trợ ra quyết định dựa trên phân tích giỏ hàng trong thương mại điện tử” là công trình do tôi thực hiện dưới sự hướng dẫn của Vũ Lê Quỳnh Phương. Các nguồn tài liệu, công cụ và bộ dữ liệu được sử dụng đều được ghi nhận trong tài liệu tham khảo.
+3: Tôi chịu trách nhiệm về tính trung thực của nội dung, kết quả thực nghiệm và các thông tin trình bày trong bản báo cáo được nộp chính thức. Những kết quả được tham khảo hoặc kế thừa từ công trình khác phải được trích dẫn đầy đủ.
+4: LỜI CẢM ƠN
+5: Tôi xin cảm ơn quý thầy cô khoa Hệ thống thông tin quản lý, Trường Đại học Ngân Hàng thành phố Hồ Chí Minh đã trang bị kiến thức chuyên môn và phương pháp nghiên cứu trong quá trình học tập. Tôi xin cảm ơn cô Vũ Lê Quỳnh Phương đã hướng dẫn và góp ý cho việc lựa chọn bài toán, xây dựng hệ thống và hoàn thiện báo cáo.
+6: Tôi cũng xin cảm ơn gia đình và những người đã hỗ trợ trong quá trình thực hiện đồ án. Các góp ý từ thầy cô và người đọc sẽ giúp tôi tiếp tục hoàn thiện hệ thống và nâng cao chất lượng nghiên cứu.
+7: TÓM TẮT ĐỒ ÁN
+8: Đồ án nghiên cứu việc khai thác dữ liệu giao dịch thương mại điện tử để nhận diện các nhóm hàng có xu hướng xuất hiện cùng nhau trong một đơn hàng. Hệ thống hướng đến hỗ trợ người quản lý tra cứu dữ liệu, theo dõi chỉ số kinh doanh và đánh giá cơ hội bán kèm dựa trên luật kết hợp. Dữ liệu Olist và Market_Basket_Optimisation được lựa chọn làm nguồn tham chiếu cho mô hình dữ liệu và thiết kế thực nghiệm.
+9: Web sử dụng Laravel, Blade, CSS, JavaScript và cơ sở dữ liệu quan hệ. Phiên bản hiện có tổ chức dữ liệu theo tài khoản và bộ dữ liệu, hỗ trợ nhập các bảng nghiệp vụ và phân tích cặp danh mục bằng truy vấn SQL. Support, Confidence và Lift được dùng để sàng lọc và diễn giải luật. Apriori, FP-Growth và phương án tích hợp Python được trình bày làm cơ sở mở rộng cho tập mục nhiều phần tử.
+10: Báo cáo trình bày cơ sở lý thuyết, yêu cầu, thiết kế, cơ chế triển khai và phương pháp kiểm chứng. Phần đánh giá phân biệt kết quả tính tay, bằng chứng từ mã nguồn và số liệu thực nghiệm cần thu thập. Các chức năng lưu phiên phân tích, xuất kết quả và thử nghiệm combo được mô tả theo thiết kế mở rộng khi chưa có đủ bằng chứng triển khai.
+11: Từ khóa: phân tích giỏ hàng; luật kết hợp; hệ thống hỗ trợ ra quyết định; Laravel; Olist.
+12: MỤC LỤC
+13: CHƯƠNG 1. TỔNG QUAN ĐỀ TÀI	1
+14: 1.1. Lý do chọn đề tài	1
+15: 1.2. Bài toán phân tích giỏ hàng trong thương mại điện tử	1
+16: 1.3. Mục tiêu của đề tài	1
+17: 1.4. Đối tượng và phạm vi nghiên cứu	2
+18: 1.5. Phương pháp nghiên cứu và thực hiện	2
+19: 1.6. Kết quả dự kiến	2
+20: 1.7. Bố cục báo cáo	3
+21: CHƯƠNG 2. CƠ SỞ LÝ THUYẾT VÀ CÔNG NGHỆ	4
+22: 2.1. Tổng quan hệ thống hỗ trợ ra quyết định	4
+23: 2.2. Phân tích giỏ hàng khách hàng	4
+24: 2.3. Khai phá tập mục phổ biến và luật kết hợp	4
+25: 2.3.1. Giao dịch, tập mục và tập mục phổ biến	4
+26: 2.3.2. Luật kết hợp	5
+27: 2.3.3. Độ hỗ trợ — Support	5
+28: 2.3.4. Độ tin cậy — Confidence	5
+29: 2.3.5. Độ nâng — Lift	5
+30: 2.4. Thuật toán khai phá luật kết hợp	5
+31: 2.4.1. Thuật toán Apriori	5
+32: 2.4.2. Thuật toán FP-Growth	6
+33: 2.4.3. Lựa chọn thuật toán cho hệ thống	6
+34: 2.5. Mô hình RFM	6
+35: 2.6. Giới thiệu bộ dữ liệu sử dụng	7
+36: 2.6.1. Bộ dữ liệu Olist	8
+37: 2.6.2. Bộ dữ liệu Market_Basket_Optimisation.csv	8
+38: 2.7. Công nghệ sử dụng	9
+39: 2.7.1. Laravel và Laravel Breeze	9
+40: 2.7.2. Blade, Tailwind CSS và JavaScript	9
+41: 2.7.3. MySQL	9
+42: 2.7.4. Python và các thư viện xử lý dữ liệu	9
+43: 2.7.5. Cơ chế kết nối Laravel với Python	10
+44: 2.8. Tổng kết chương	10
+45: CHƯƠNG 3. PHÂN TÍCH VÀ THIẾT KẾ HỆ THỐNG	11
+46: 3.1. Khảo sát bài toán và nhu cầu người dùng	11
+47: 3.2. Quy trình nghiệp vụ tổng thể	11
+48: 3.3. Yêu cầu chức năng	11
+49: 3.3.1. Đăng ký, đăng nhập và quản lý tài khoản	11
+50: 3.3.2. Quản lý bộ dữ liệu và nhập dữ liệu CSV	11
+51: 3.3.3. Tra cứu sản phẩm, khách hàng và đơn hàng	12
+52: 3.3.4. Thống kê tổng quan kinh doanh	12
+53: 3.3.5. Thiết lập và chạy phân tích giỏ hàng	12
+54: 3.3.6. Tra cứu luật kết hợp	12
+55: 3.3.7. Gợi ý sản phẩm và đề xuất bán kèm	13
+56: 3.3.8 Phân khúc khách hàng	13
+57: 3.4. Yêu cầu phi chức năng	13
+58: 3.5. Mô hình Use Case	14
+59: 3.5.1. Sơ đồ Use Case tổng quát	14
+60: 3.5.2. Đặc tả các Use Case chính	14
+61: 3.6. Sơ đồ hoạt động	21
+62: 3.6.1. Quy trình nhập và kiểm tra dữ liệu	21
+63: 3.6.2. Quy trình chạy phân tích	21
+64: 3.6.3. Quy trình tạo gợi ý bán kèm	21
+65: 3.7. Sơ đồ tuần tự cho các chức năng chính	22
+66: 3.8. Thiết kế kiến trúc hệ thống	22
+67: 3.9. Thiết kế cơ sở dữ liệu	23
+68: 3.9.1. Sơ đồ thực thể – liên kết	23
+69: 3.9.2. Mô tả các thực thể trong ERD	24
+70: 3.9.3. Mô hình ERD	26
+71: 3.10. Thiết kế giao diện	27
+72: 3.11. Tổng kết chương	27
+73: CHƯƠNG 4. XÂY DỰNG HỆ THỐNG	28
+74: 4.1. Môi trường phát triển và cấu trúc mã nguồn	28
+75: 4.2. Giao diện chung và thanh điều hướng	28
+76: 4.3. Xây dựng chức năng nhập và hiển thị dữ liệu	29
+77: 4.3.1. Tạo và quản lý bộ dữ liệu	30
+78: 4.3.2. Tải tệp và hiển thị dữ liệu	31
+79: 4.3.3. Kiểm tra cấu trúc và tính hợp lệ	32
+80: 4.3.4. Nhập dữ liệu vào cơ sở dữ liệu	34
+81: 4.3.5. Xử lý lỗi, dữ liệu trùng và lịch sử nhập	35
+82: 4.4. Xây dựng chức năng  khai phá luật kết hợp	36
+83: 4.4.1. Xây dựng giao diện phân tích	37
+84: 4.4.2. Lựa chọn bộ dữ liệu và nhập tham số	37
+85: 4.4.3. Xử lý dữ liệu và tạo luật kết hợp	38
+86: 4.4.4. Hiển thị thống kê và bảng kết quả	39
+87: 4.4.5. Lưu kết quả và bảo đảm tính nhất quán	40
+88: 4.5. Xây dựng chức năng gợi ý sản phẩm	40
+89: 4.5.1. Xây dựng giao diện gợi ý sản phẩm	41
+90: 4.5.2. Tìm kiếm và tạo giỏ hàng mô phỏng	41
+91: 4.5.3. Thiết lập ngưỡng và thực hiện gợi ý	42
+92: 4.5.4. Xử lý và lựa chọn kết quả gợi ý	43
+93: 4.5.5. Hiển thị và giải thích đề xuất	44
+94: 4.5.6. Xử lý trạng thái chưa có kết quả	45
+95: 4.5.7. Lưu trữ và cập nhật kết quả	46
+96: 4.6. Xây dựng chức năng phân khúc khách hàng	46
+97: 4.6.1. Xây dựng giao diện phân khúc khách hàng	47
+98: 4.6.2. Thiết lập phân tích và lọc danh sách	47
+99: 4.6.3. Tổng hợp dữ liệu mua hàng của khách hàng	48
+100: 4.6.4. Chấm điểm và phân nhóm khách hàng	49
+101: 4.6.5. Hiển thị chỉ số tổng quan và phân bố khách hàng	50
+102: 4.6.6. Hiển thị danh sách khách hàng theo phân khúc	51
+103: 4.6.7. Giải thích quy tắc và lưu kết quả phân tích	53
+104: 4.7. Xây dựng nhóm chức năng hệ thống	53
+105: 4.7.1. Chức năng quản lý bộ dữ liệu	54
+106: 4.7.2. Giao diện quản lý tài khoản	55
+107: 4.7.3. Cập nhật thông tin tài khoản	56
+108: 4.7.4. Thay đổi mật khẩu	57
+109: 4.7.5. Đăng xuất tài khoản	58
+110: 4.7.6. Xóa tài khoản và kiểm tra dữ liệu liên quan	59
+111: KẾT LUẬN VÀ HƯỚNG PHÁT TRIỂN	60
+112: 1. Kết quả đạt được	60
+113: 2. Những hạn chế còn tồn tại	60
+114: 3. Hướng phát triển	60
+115: TÀI LIỆU THAM KHẢO	61
+116: 
+117: DANH MỤC TỪ VIẾT TẮT
+118: Danh mục thuật ngữ và từ viết tắt
+119: 
+120: DANH MỤC BẢNG
+121: Bảng 2.1. So sánh các phương án phân tích	6
+122: 
+123: DANH MỤC HÌNH
+124: Hình 3.1. Sơ đồ use case	14
+125: Hình 3.2. Kiến trúc xử lý của hệ thống	23
+126: Hình 3.3. Quan hệ giữa các thực thể nghiệp vụ	24
+127: Hình 3.4. Mô hình ERD	26
+128: Hình 4.1. Bố cục giao diện và thanh điều hướng của hệ thống.	29
+129: Hình 4.2. Giao diện chức năng phân tích luật kết hợp.	37
+130: Hình 4.3. Khu vực thiết lập tham số phân tích luật kết hợp.	37
+131: Hình 4.4. Thống kê tổng quan và kết quả phân tích luật kết hợp.	39
+132: Hình 4.5. Giao diện chức năng gợi ý sản phẩm.	41
+133: Hình 4.6. Tìm kiếm và lựa chọn nhóm sản phẩm cho giỏ hàng mô phỏng.	42
+134: Hình 4.7. Thiết lập các ngưỡng tạo gợi ý.	43
+135: Hình 4.8. Kết quả gợi ý theo giỏ hàng mô phỏng.	44
+136: Hình 4.9. Thông báo khi không có đề xuất phù hợp với giỏ hàng.	46
+137: Hình 4.10. Giao diện chức năng phân khúc khách hàng.	47
+138: Hình 4.11. Lựa chọn bộ dữ liệu, ngày phân tích và điều kiện lọc khách hàng.	48
+139: Hình 4.12. Thống kê tổng quan và phân bố khách hàng theo phân khúc.	51
+140: Hình 4.13. Danh sách khách hàng và kết quả chấm điểm phân khúc.	52
+141: Hình 4.14. Hướng dẫn chấm điểm và quy tắc phân nhóm khách hàng.	53
+142: Hình 4.15. Giao diện quản lý bộ dữ liệu.	54
+143: Hình 4.16. Giao diện quản lý tài khoản.	56
+144: Hình 4.17. Biểu mẫu cập nhật thông tin cá nhân và cửa hàng.	57
+145: Hình 4.18. Giao diện thay đổi mật khẩu.	58
+146: Hình 4.19. Khu vực xác nhận xóa tài khoản.	59
+147: 
+148: 
+149: CHƯƠNG 1. TỔNG QUAN ĐỀ TÀI
+150: 1.1. Lý do chọn đề tài
+151: Giao dịch thương mại điện tử tạo ra dữ liệu về sản phẩm, khách hàng, đơn hàng và thanh toán. Nếu chỉ xem doanh số từng sản phẩm, người quản lý khó nhận ra quan hệ mua chung giữa các nhóm hàng. Phân tích giỏ hàng bổ sung góc nhìn này bằng cách đo mức độ đồng xuất hiện trong giao dịch.
+152: Đề tài kết hợp xử lý dữ liệu với phát triển ứng dụng web, giúp người dùng tiếp cận kết quả phân tích thông qua giao diện thống nhất. Giá trị của hệ thống nằm ở việc cung cấp căn cứ định lượng cho quyết định bán kèm; hiệu quả kinh doanh của đề xuất vẫn cần được kiểm chứng bằng thử nghiệm thực tế.
+153: 1.2. Bài toán phân tích giỏ hàng trong thương mại điện tử
+154: Đầu vào là tập đơn hàng và các dòng sản phẩm thuộc từng đơn. Mỗi đơn được chuyển thành một tập mục không lặp; mục có thể là sản phẩm hoặc danh mục tùy cấp phân tích. Đầu ra là các luật X ⇒ Y thỏa mãn ngưỡng do người dùng thiết lập.
+155: Trong phạm vi phiên bản hiện có, mỗi vế của luật gồm một danh mục. Hệ thống cần xác định đúng tập giao dịch hợp lệ, loại đơn bị hủy hoặc không khả dụng và tránh đếm nhiều lần cùng danh mục trong một đơn. Mẫu số tính Support phải bao gồm cả giỏ chỉ có một mục hợp lệ.
+156: 1.3. Mục tiêu của đề tài
+157: Mục tiêu tổng quát là xây dựng web hỗ trợ quản lý dữ liệu giao dịch và khai thác quan hệ mua chung có thể giải thích được. Các mục tiêu cụ thể gồm tổ chức dữ liệu theo tài khoản, nhập dữ liệu có kiểm tra, cung cấp tra cứu và thống kê, tính các chỉ số luật kết hợp và trình bày kết quả theo ngưỡng. Bên cạnh chức năng phân tích giỏ hàng, đề tài xây dựng chức năng phân khúc khách hàng theo mô hình RFM nhằm bổ sung góc nhìn về mức độ gần đây, tần suất đặt hàng và giá trị thanh toán của khách hàng. Kết quả phân khúc giúp người quản lý tham khảo khi xác định nhóm khách hàng cần ưu tiên chăm sóc. Đây là chức năng bổ trợ; phiên bản hiện tại chưa sử dụng phân khúc RFM để cá nhân hóa các gợi ý bán kèm.
+158: Định hướng mở rộng gồm khai phá tập mục nhiều phần tử, lưu lịch sử phiên phân tích, xuất kết quả và tạo danh sách ứng viên bán kèm. Mỗi mục tiêu phải được đánh giá dựa trên bằng chứng triển khai và kết quả kiểm thử tương ứng.
+159: 1.4. Đối tượng và phạm vi nghiên cứu
+160: Đối tượng nghiên cứu gồm dữ liệu đơn hàng, cấu trúc giỏ hàng, luật kết hợp và quy trình hỗ trợ ra quyết định. Người dùng chính là người quản lý hoặc người phân tích dữ liệu tự quản lý bộ dữ liệu của mình.
+161: Phạm vi hiện có tập trung vào nhập liệu, thống kê và luật cặp danh mục. Hệ thống không sử dụng thông tin thanh toán nhạy cảm để cá nhân hóa và chưa chứng minh tác động nhân quả đến doanh thu. Dữ liệu tham chiếu là Olist và Market_Basket_Optimisation; việc suy rộng sang thị trường khác cần khảo sát riêng.
+162: Phạm vi phân tích khách hàng bao gồm tổng hợp các chỉ số RFM và phân nhóm theo bộ quy tắc được xác định trước. Hệ thống không triển khai mô hình dự báo khách hàng rời bỏ và chưa kiểm chứng hiệu quả thực tế của các hướng chăm sóc được đề xuất. Kết quả RFM và kết quả phân tích giỏ hàng được trình bày độc lập, cung cấp hai góc nhìn bổ sung cho người quản lý.
+163: 1.5. Phương pháp nghiên cứu và thực hiện
+164: Đề tài sử dụng nghiên cứu tài liệu để xác định khái niệm và thuật toán, phân tích yêu cầu để mô hình hóa quy trình, sau đó xây dựng các thành phần theo kiến trúc MVC. Mô hình quan hệ được thiết kế để giữ liên kết giữa bộ dữ liệu, khách hàng, sản phẩm và đơn hàng.
+165: Tính đúng đắn được kiểm chứng bằng bộ giao dịch nhỏ có thể tính tay và các ca kiểm thử biên. Thực nghiệm quy mô lớn cần cố định dữ liệu, tham số, cấu hình máy và cách đo thời gian nhằm bảo đảm khả năng đối chiếu giữa các lần chạy.
+166: 1.6. Kết quả dự kiến
+167: Sản phẩm của đề tài gồm ứng dụng web, cơ sở dữ liệu nghiệp vụ, mô-đun tính luật kết hợp và báo cáo phân tích. Kết quả kỳ vọng là người dùng có thể nạp dữ liệu, xem chỉ số tổng quan và giải thích vì sao một cặp danh mục được đưa vào danh sách xem xét bán kèm.
+168: Các chỉ tiêu nghiệm thu gồm sự chính xác của phép tính, khả năng cô lập dữ liệu theo tài khoản, thông báo lỗi nhập liệu rõ ràng và tính nhất quán giữa màn hình thống kê với dữ liệu nguồn. Các chỉ tiêu thời gian xử lý sẽ được xác lập sau khi có số đo.
+169: 1.7. Bố cục báo cáo
+170: Báo cáo gồm năm chương. Chương 1 xác định bài toán và mục tiêu. Chương 2 trình bày cơ sở lý thuyết và công nghệ. Chương 3 phân tích yêu cầu và thiết kế hệ thống. Chương 4 mô tả phần xây dựng cùng các thành phần dự kiến mở rộng. Chương 5 trình bày kiểm thử và phương pháp đánh giá. Phần cuối tổng hợp kết quả, hạn chế, hướng phát triển và tài liệu tham khảo.
+171: CHƯƠNG 2. CƠ SỞ LÝ THUYẾT VÀ CÔNG NGHỆ
+172: 2.1. Tổng quan hệ thống hỗ trợ ra quyết định
+173: Hệ thống hỗ trợ ra quyết định kết hợp dữ liệu, mô hình phân tích và giao diện để giúp người dùng đánh giá các phương án. Trong đề tài, dữ liệu nghiệp vụ là đầu vào, luật kết hợp là mô hình phân tích và trang kết quả là nơi người quản lý xem xét bằng chứng.
+174: Quyết định triển khai chương trình bán kèm còn phụ thuộc tồn kho, lợi nhuận, thời vụ và vận hành. Vì vậy, luật kết hợp được dùng để tạo ứng viên và hỗ trợ giải thích, không tự động khẳng định một chiến dịch sẽ thành công.
+175: 2.2. Phân tích giỏ hàng khách hàng
+176: Phân tích giỏ hàng nghiên cứu quan hệ cùng xuất hiện của các sản phẩm trong giao dịch. Quan hệ này có thể phục vụ sắp xếp danh mục, gợi ý mua kèm hoặc xác định nhóm hàng cần khảo sát thêm. Đơn vị phân tích của đề tài là đơn hàng, không phải toàn bộ lịch sử của một khách hàng.
+177: Khi gộp sản phẩm thành danh mục, số loại mục giảm và mẫu mua chung dễ xuất hiện hơn. Đổi lại, luật danh mục có độ chi tiết thấp và không đủ để lựa chọn một mã sản phẩm cụ thể nếu thiếu bước đối chiếu bổ sung.
+178: 2.3. Khai phá tập mục phổ biến và luật kết hợp
+179: Quy trình chuẩn gồm tìm tập mục có tần suất đủ lớn, sau đó sinh luật từ các tập mục đó. Support, Confidence và Lift phản ánh ba khía cạnh khác nhau: mức phổ biến, xác suất có điều kiện và độ lệch so với giả thiết độc lập. Khi diễn giải, cần xem thêm số giao dịch hỗ trợ để tránh đề xuất dựa trên mẫu quá nhỏ.
+180: 2.3.1. Giao dịch, tập mục và tập mục phổ biến
+181: Gọi I là tập tất cả các mục và D là tập giao dịch gồm N phần tử. Mỗi giao dịch t là một tập con của I. Một tập mục X được gọi là phổ biến khi tỷ lệ giao dịch chứa X đạt ngưỡng hỗ trợ tối thiểu. Trong một giao dịch, số lượng mua nhiều lần của cùng một mục không làm tăng số lần xuất hiện theo mô hình nhị phân.
+182: 2.3.2. Luật kết hợp
+183: Luật kết hợp có dạng X ⇒ Y, trong đó X và Y không rỗng và X ∩ Y = ∅. X là tiền đề, Y là hệ quả. Chiều của luật có ý nghĩa đối với Confidence; luật A ⇒ B có thể có độ tin cậy khác luật B ⇒ A. Quan hệ này mô tả thống kê quan sát, không chứng minh A gây ra B.
+184: 2.3.3. Độ hỗ trợ — Support
+185: Support(X) = n(X)/N. Đối với luật X ⇒ Y, Support(X ⇒ Y) = n(X ∪ Y)/N. Khi biểu diễn phần trăm, nhân kết quả với 100. Ví dụ, cặp A và B xuất hiện trong 2 trên 5 giỏ thì Support là 40%. N phải được xác định sau cùng một chính sách lọc dữ liệu cho mọi luật.
+186: 2.3.4. Độ tin cậy — Confidence
+187: Confidence(X ⇒ Y) = n(X ∪ Y)/n(X), với n(X) > 0. Chỉ số biểu diễn tỷ lệ giỏ có Y trong số giỏ đã có X. Nếu A có trong 3 giỏ và A cùng B có trong 2 giỏ thì Confidence(A ⇒ B) = 2/3 ≈ 66,67%. Confidence cao có thể do Y vốn đã rất phổ biến nên cần xem đồng thời Lift.
+188: 2.3.5. Độ nâng — Lift
+189: Lift(X ⇒ Y) = Confidence(X ⇒ Y)/Support(Y), trong đó hai tỷ lệ cùng dùng dạng số thập phân. Lift > 1 biểu thị đồng xuất hiện cao hơn mức kỳ vọng dưới giả thiết độc lập; Lift = 1 tương ứng độc lập theo tần suất quan sát; Lift < 1 biểu thị thấp hơn kỳ vọng. Với Confidence = 2/3 và Support(B) = 3/5, Lift = 10/9 ≈ 1,1111.
+190: 2.4. Thuật toán khai phá luật kết hợp
+191: Apriori và FP-Growth là hai cách tiếp cận phổ biến để khai phá tập mục. Lựa chọn thuật toán phụ thuộc số mục, số giao dịch, độ dài giỏ và ngưỡng hỗ trợ. Phiên bản chỉ xét cặp mục có thể dùng phép đếm đồng xuất hiện trực tiếp mà không triển khai đầy đủ một thuật toán khai phá tập mục tổng quát.
+192: 2.4.1. Thuật toán Apriori
+193: Apriori dựa trên tính chất: mọi tập con của một tập mục phổ biến cũng phải phổ biến. Thuật toán tìm tập một mục, tạo ứng viên hai mục, loại ứng viên có tập con không phổ biến rồi lặp lại với kích thước lớn hơn [1]. Cách tiếp cận dễ giải thích nhưng có thể phát sinh nhiều ứng viên và nhiều lượt quét dữ liệu.
+194: 2.4.2. Thuật toán FP-Growth
+195: FP-Growth nén giao dịch thành FP-tree theo thứ tự tần suất của các mục, sau đó khai phá qua các cơ sở mẫu điều kiện và cây điều kiện [2]. Phương pháp tránh sinh toàn bộ ứng viên như Apriori. Hiệu quả thực tế phụ thuộc khả năng dùng chung tiền tố và cấu trúc dữ liệu; không nên khẳng định luôn nhanh hơn nếu chưa đo trên cùng đầu vào.
+196: 2.4.3. Lựa chọn thuật toán cho hệ thống
+197: Mã nguồn hiện có dùng SQL đếm từng danh mục và từng cặp danh mục, sau đó sinh hai chiều luật. Cách này phù hợp phạm vi luật một mục ⇒ một mục và tận dụng cơ sở dữ liệu sẵn có. Đây không phải cài đặt đầy đủ Apriori hoặc FP-Growth.
+198: Khi mở rộng tập mục nhiều phần tử, có thể đánh giá FP-Growth trong Python và dùng Apriori làm phương án đối chiếu. Cần giữ nguyên định nghĩa giao dịch, điều kiện lọc và đơn vị ngưỡng để so sánh kết quả giữa các bộ xử lý.
+199: Bảng 2.1. So sánh các phương án phân tích
+200: 
+201: 2.5. Mô hình RFM
+202: RFM là mô hình phân tích khách hàng dựa trên ba khía cạnh của lịch sử giao dịch: Recency, Frequency và Monetary. Mô hình hỗ trợ nhận diện các nhóm khách hàng theo mức độ hoạt động và giá trị giao dịch, làm căn cứ tham khảo cho hoạt động chăm sóc và tiếp thị.
+203: Recency (R) là số ngày từ lần đặt hàng hợp lệ gần nhất đến ngày phân tích. Giá trị R càng nhỏ cho thấy khách hàng có hoạt động đặt hàng càng gần thời điểm phân tích.
+204: Frequency (F) là số đơn hàng hợp lệ của khách hàng trong phạm vi thời gian được xét. Giá trị F phản ánh tần suất đặt hàng, không phải số dòng sản phẩm hoặc số lần thanh toán.
+205: Monetary (M) là tổng giá trị thanh toán ghi nhận từ các đơn hàng được xét. Chỉ số này phản ánh giá trị thanh toán trong dữ liệu, chưa phản ánh lợi nhuận hoặc giá trị vòng đời của khách hàng.
+206: Trong đề tài, khách hàng được nhận diện bằng customer_unique_id. Các bản ghi có cùng mã này được tổng hợp thành một khách hàng phân tích. Ngày phân tích là mốc giới hạn dữ liệu: chỉ các đơn có thời điểm mua đến hết ngày được chọn mới được sử dụng. Nếu người dùng không chọn ngày, hệ thống lấy ngày mua mới nhất trong các đơn đủ điều kiện làm mốc.
+207: Hệ thống quy đổi từng chỉ số về thang điểm từ 1 đến 5. Điểm R sử dụng các khoảng thời gian cố định; điểm F dựa trên số đơn và được giới hạn ở mức 5; điểm M dựa trên các mốc phân vị của tập khách hàng đang phân tích. Sau đó, khách hàng được phân nhóm theo thứ tự ưu tiên của các điều kiện trình bày tại mục 4.6.4.
+208: Các ngưỡng và quy tắc phân nhóm là lựa chọn thiết kế của đề tài, chưa được xem là bộ tiêu chuẩn tối ưu cho mọi doanh nghiệp. Mức độ phù hợp cần được đánh giá thông qua phân bố dữ liệu và bối cảnh kinh doanh. Các tên nhóm như “có nguy cơ rời bỏ” biểu thị dấu hiệu theo quy tắc RFM, chưa phải kết quả dự báo xác suất rời bỏ.
+209: Trong hệ thống, RFM cung cấp góc nhìn về khách hàng, còn luật kết hợp cung cấp góc nhìn về quan hệ đồng xuất hiện giữa các danh mục trong đơn hàng. Hai chức năng bổ sung thông tin cho người quản lý; phiên bản hiện tại chưa kết hợp chúng thành mô hình gợi ý riêng cho từng phân khúc.
+210: 2.6. Giới thiệu bộ dữ liệu sử dụng
+211: Dự án sử dụng bộ dữ liệu Olist làm nguồn dữ liệu chính và bộ dữ liệu Market_Basket_Optimisation.csv để xây dựng dữ liệu giả lập phục vụ chức năng phân tích luật kết hợp.
+212: 2.6.1. Bộ dữ liệu Olist
+213: Olist là bộ dữ liệu thương mại điện tử công khai được cung cấp trên Kaggle [3]. Trong phạm vi dự án, các bảng được sử dụng gồm customers, orders, order_items, products và order_payments. Quan hệ giữa các bảng cho phép tái dựng đơn hàng, xác định sản phẩm và danh mục, đồng thời đối chiếu thông tin thanh toán.
+214: Olist được sử dụng để triển khai các chức năng phân tích hoạt động kinh doanh của hệ thống. Tuy nhiên, khi thực hiện phân tích luật kết hợp trên dữ liệu Olist đã nhập và xử lý, hệ thống không tìm được luật đáp ứng các ngưỡng được thiết lập. Kết quả này được ghi nhận trong phạm vi tập dữ liệu và cấu hình phân tích của dự án, không đồng nghĩa với việc toàn bộ bộ dữ liệu Olist không tồn tại mối liên hệ giữa các sản phẩm.
+215: Trong quá trình xử lý, cần phân biệt mã khách hàng gắn với đơn hàng (customer_id) và mã định danh khách hàng duy nhất (customer_unique_id). Các thống kê được tính từ dữ liệu thực tế sau khi nhập và làm sạch, thay vì sử dụng số lượng bản ghi của toàn bộ bản phát hành.
+216: 2.6.2. Bộ dữ liệu Market_Basket_Optimisation.csv
+217: Market_Basket_Optimisation.csv là bộ dữ liệu giao dịch thường được sử dụng trong bài toán phân tích giỏ hàng và khai thác luật kết hợp. Mỗi dòng biểu diễn một giao dịch, gồm các mặt hàng được mua cùng nhau.
+218: Market_Basket_Optimisation.csv là bộ dữ liệu giao dịch được công bố trên Kaggle [5]. Mỗi dòng biểu diễn một giao dịch, gồm các mặt hàng xuất hiện trong cùng giỏ hàng. Trong dự án, bộ dữ liệu này được sử dụng để xây dựng dữ liệu giả lập theo cấu trúc Olist, phục vụ kiểm thử và minh họa chức năng phân tích luật kết hợp khi dữ liệu Olist đã xử lý chưa tạo ra luật đáp ứng các ngưỡng được thiết lập.
+219: Do quá trình phân tích trên dữ liệu Olist chưa tìm được luật đáp ứng các ngưỡng đã chọn, dự án sử dụng bộ dữ liệu này để xây dựng dữ liệu giả lập theo cấu trúc Olist và đưa vào hệ thống. Mục đích là tạo dữ liệu phục vụ kiểm thử và minh họa chức năng khai thác luật kết hợp, bao gồm việc phát hiện các nhóm mặt hàng thường xuất hiện cùng nhau và đánh giá luật thông qua các chỉ số support, confidence và lift.
+220: Dữ liệu giả lập được phân biệt với dữ liệu Olist gốc. Các luật thu được từ dữ liệu giả lập chỉ phục vụ đánh giá và minh họa hoạt động của chức năng, không được sử dụng để kết luận về hành vi mua hàng thực tế của khách hàng Olist.
+221: 
+222: 2.7. Công nghệ sử dụng
+223: Ứng dụng web chịu trách nhiệm xác thực, quản lý bộ dữ liệu, nhập liệu và hiển thị. Cơ sở dữ liệu thực hiện lưu trữ và tổng hợp. Thành phần Python được xem là phương án mở rộng cho thuật toán chuyên sâu. Các phiên bản cài đặt chính xác cần được trích từ tệp khóa phụ thuộc tại thời điểm nghiệm thu.
+224: 2.7.1. Laravel và Laravel Breeze
+225: Laravel tổ chức ứng dụng theo các thành phần route, controller, service và view. Breeze cung cấp nền tảng các luồng xác thực và quản lý tài khoản. Trong mã nguồn đã có các controller đăng ký, đăng nhập, quên mật khẩu, xác nhận email và hồ sơ người dùng. Trạng thái sử dụng từng luồng cần được kiểm tra cùng cấu hình triển khai.
+226: 2.7.2. Blade, Tailwind CSS và JavaScript
+227: Blade kết xuất trang ở phía máy chủ và hỗ trợ hiển thị dữ liệu qua cú pháp có escape. Tailwind CSS hỗ trợ xây dựng bố cục và trạng thái giao diện. JavaScript bổ sung tương tác như lựa chọn bộ dữ liệu, xử lý bộ lọc hoặc cập nhật biểu đồ. Các kiểm tra đầu vào quan trọng vẫn phải được thực hiện tại máy chủ.
+228: 2.7.3. MySQL
+229: MySQL lưu dữ liệu quan hệ và hỗ trợ giao dịch, khóa chính, khóa ngoại cùng truy vấn tổng hợp. Migration phân vùng dữ liệu của dự án được viết cho lược đồ MySQL hiện hữu. Các khóa ghép có dataset_id giữ cho mã đơn hàng hoặc sản phẩm giống nhau ở hai bộ dữ liệu không bị nhập nhằng.
+230: 2.7.4. Python và các thư viện xử lý dữ liệu
+231: Thiết kế mở rộng có thể sử dụng pandas để đọc và biến đổi dữ liệu; thư viện khai phá tập mục như mlxtend cần được chọn và cố định phiên bản trước triển khai. Ma trận hiện diện nên dùng dạng thưa nếu số loại sản phẩm lớn. Phiên bản mã nguồn được khảo sát chưa cho thấy bộ xử lý Python đang thực thi trong luồng phân tích.
+232: 2.7.5. Cơ chế kết nối Laravel với Python
+233: Hai phương án có thể lựa chọn là tiến trình con nhận dữ liệu qua tệp hoặc đầu vào chuẩn, và dịch vụ Python giao tiếp bằng API. Với tác vụ dài, Laravel nên đưa yêu cầu vào hàng đợi và theo dõi mã phiên chạy. Hợp đồng dữ liệu cần quy định dataset_id, phiên bản dữ liệu, tham số, định dạng lỗi và định dạng kết quả. Đây là thiết kế dự kiến, chưa phải kết quả tích hợp đã kiểm chứng.
+234: 2.8. Tổng kết chương
+235: Chương đã xác định mô hình giỏ hàng, các chỉ số luật kết hợp và khác biệt giữa thuật toán khai phá tổng quát với phép đếm cặp mục. Các công nghệ được phân vai theo lưu trữ, xử lý và trình bày. Cơ sở này được dùng để thiết kế hệ thống và xây dựng tiêu chí kiểm chứng ở các chương tiếp theo.
+236: CHƯƠNG 3. PHÂN TÍCH VÀ THIẾT KẾ HỆ THỐNG
+237: 3.1. Khảo sát bài toán và nhu cầu người dùng
+238: Người dùng cần hợp nhất dữ liệu từ nhiều tệp, biết dòng nào sai trước khi sử dụng kết quả và tra cứu được thông tin theo bộ dữ liệu đang chọn. Người quản lý cần chỉ số tổng quan; người phân tích cần kiểm soát ngưỡng và giải thích luật. Các nhu cầu này được rút ra từ bài toán và chức năng hiện có; khảo sát phỏng vấn thực tế cần bổ sung nếu dùng làm bằng chứng nghiên cứu.
+239: 3.2. Quy trình nghiệp vụ tổng thể
+240: Người dùng đăng nhập, tạo bộ dữ liệu, nhập các bảng theo quan hệ phụ thuộc rồi kiểm tra thống kê. Sau đó người dùng mở trang phân tích, đặt ngưỡng và xem các luật được trả về. Kết quả chỉ được xem là ứng viên hỗ trợ quyết định sau khi đối chiếu số lượng giỏ, mức phổ biến của hệ quả và bối cảnh kinh doanh.
+241: 3.3. Yêu cầu chức năng
+242: Yêu cầu được chia thành nhóm tài khoản, dữ liệu, thống kê, phân tích và khai thác kết quả. Nhóm đã có tuyến xử lý trong ứng dụng được mô tả theo hành vi hiện tại. Nhóm lịch sử, xuất kết quả và thử nghiệm combo được xác định là yêu cầu mở rộng để tránh nhầm lẫn với chức năng đã nghiệm thu.
+243: 3.3.1. Đăng ký, đăng nhập và quản lý tài khoản
+244: Người dùng đăng ký tài khoản, đăng nhập và cập nhật hồ sơ theo luồng xác thực. Tài khoản chưa đăng nhập phải được chuyển tới trang đăng nhập khi truy cập dữ liệu được bảo vệ. Các yêu cầu cập nhật dữ liệu cần có xác thực, kiểm tra đầu vào và bảo vệ CSRF.
+245: 3.3.2. Quản lý bộ dữ liệu và nhập dữ liệu CSV
+246: Người dùng tạo hoặc chọn bộ dữ liệu thuộc quyền sở hữu rồi nhập dữ liệu cho từng bảng. Máy chủ kiểm tra tệp, tiêu đề cột, kiểu dữ liệu và trùng khóa. CSV là định dạng trọng tâm của đề cương; bộ đọc hiện có còn hỗ trợ một số định dạng bảng tính. Không gán mặc định bộ dữ liệu của người khác khi yêu cầu không hợp lệ.
+247: 3.3.3. Tra cứu sản phẩm, khách hàng và đơn hàng
+248: Các màn hình tra cứu phải lấy dữ liệu trong bộ đang chọn và hỗ trợ phân trang khi số bản ghi lớn. Đơn hàng liên kết với khách hàng, chi tiết đơn và thanh toán thông qua khóa nghiệp vụ cùng dataset_id. Cần giữ nhất quán bộ lọc và điều kiện truy vấn khi chuyển trang.
+249: 3.3.4. Thống kê tổng quan kinh doanh
+250: Dashboard hiển thị tổng số đơn hàng, số khách hàng duy nhất, tổng giá trị thanh toán, giá trị thanh toán trung bình trên mỗi đơn có bản ghi thanh toán và tỷ lệ đơn đã giao trên tổng số đơn trong bộ dữ liệu được chọn. Các thống kê theo tháng mua hàng, trạng thái đơn, phương thức thanh toán và tám danh mục có tổng giá bán cao nhất giúp người dùng theo dõi phân bố dữ liệu. Các chỉ số cần nêu rõ cách tính, phạm vi dữ liệu và đơn vị; chỉ số trung bình và tỷ lệ cần xác định rõ mẫu số. Giá trị tiền tệ giữ nguyên đơn vị của dữ liệu nguồn, tổng thanh toán không đồng nghĩa với doanh thu thuần.
+251: 3.3.5. Thiết lập và chạy phân tích giỏ hàng
+252: Người dùng chọn bộ dữ liệu và nhập các ngưỡng tối thiểu: Support từ 0,01% đến 100%, Confidence từ 0% đến 100% và Lift từ 0 đến 1000. Hệ thống kiểm tra tính hợp lệ của các ngưỡng, xác nhận bộ dữ liệu thuộc quyền truy cập của người dùng và thực hiện phân tích. Kết quả hiển thị số giỏ hàng hợp lệ, số danh mục sản phẩm và các luật đạt ngưỡng. Nếu không có giỏ hàng hợp lệ, giao diện thông báo và hướng dẫn bổ sung dữ liệu; nếu không có luật đạt ngưỡng, giao diện gợi ý giảm các ngưỡng và kiểm tra giỏ hàng có ít nhất hai danh mục khác nhau.
+253: 3.3.6. Tra cứu luật kết hợp
+254: Mỗi luật hiển thị tiền đề, hệ quả, số giỏ hàng chứa đồng thời tiền đề và hệ quả, cùng ba chỉ số đánh giá: Support, Confidence và Lift. Kết quả được sắp xếp giảm dần theo Lift, tiếp đến là Confidence và số giỏ cùng xuất hiện. Khi các giá trị này bằng nhau, hệ thống sắp xếp tăng dần theo tên tiền đề, sau đó theo tên hệ quả để bảo đảm thứ tự ổn định. Các luật phản ánh mối liên hệ trong dữ liệu đã quan sát, không bảo đảm hành vi mua hàng trong tương lai.
+255: 3.3.7. Gợi ý sản phẩm và đề xuất bán kèm
+256: Người dùng chọn một tập danh mục làm giỏ hàng đầu vào. Hệ thống tìm các luật có tiền đề thuộc tập đã chọn, loại các danh mục đã có trong giỏ và trả về tối đa 10 danh mục gợi ý không trùng nhau. Kết quả được ưu tiên theo Lift, Confidence và số giỏ cùng xuất hiện; mỗi danh mục sử dụng luật phù hợp được xếp hạng cao nhất. Giao diện hiển thị căn cứ đề xuất, Support, Confidence, Lift và số giỏ mua cùng. Việc lựa chọn sản phẩm cụ thể từ danh mục là hướng mở rộng, cần bổ sung điều kiện về tồn kho, giá và khả năng cung ứng.
+257: 3.3.8 Phân khúc khách hàng
+258: Người dùng lựa chọn bộ dữ liệu và ngày phân tích để xem kết quả phân khúc khách hàng theo RFM. Hệ thống tổng hợp các bản ghi cùng customer_unique_id, tính thời gian từ lần đặt hàng gần nhất, số đơn hợp lệ và tổng giá trị thanh toán, sau đó chấm điểm và phân nhóm theo quy tắc đã xác định.
+259: Kết quả gồm quy mô từng phân khúc, tỷ trọng khách hàng, tổng giá trị thanh toán và danh sách chi tiết kèm các giá trị RFM. Người dùng có thể lọc theo phân khúc và tìm kiếm mã khách hàng. Các hướng chăm sóc hiển thị trên giao diện mang tính tham khảo; hệ thống chưa tự động triển khai chiến dịch tiếp thị hoặc tạo gợi ý bán kèm theo phân khúc.
+260: 3.4. Yêu cầu phi chức năng
+261: Hệ thống cần bảo đảm tính đúng đắn của dữ liệu và kết quả tính toán, bảo mật, khả năng sử dụng và khả năng bảo trì. Mọi thao tác truy cập dữ liệu nghiệp vụ phải được giới hạn trong bộ dữ liệu mà người dùng có quyền truy cập. Thông báo lỗi cần giúp người dùng xác định và khắc phục vấn đề, đồng thời không tiết lộ thông tin nhạy cảm hoặc chi tiết nội bộ của hệ thống. Các tác vụ nhập dữ liệu và phân tích khối lượng lớn cần kiểm soát thời gian thực thi và mức sử dụng bộ nhớ. Mã nguồn cần được tổ chức rõ ràng và có kiểm thử cho các xử lý quan trọng. Các ngưỡng hiệu năng cụ thể chỉ được xác nhận khi có cấu hình môi trường, quy mô dữ liệu và kết quả đo kiểm tương ứng.
+262: 3.5. Mô hình Use Case
+263: Tác nhân chính là người dùng đã xác thực. Các ca sử dụng xoay quanh quản lý bộ dữ liệu, nhập liệu, tra cứu, xem thống kê và phân tích. Thành phần Python nếu được triển khai sẽ là thành phần kỹ thuật phụ trợ, không phải vai trò người dùng có quyền truy cập độc lập.
+264: 3.5.1. Sơ đồ Use Case tổng quát
+265: Sơ đồ Use Case tổng quát của Web Analyst được trình bày tại Hình 3.1.
+266: 1
+267: Hình 3.1. Sơ đồ use case
+268: 3.5.2. Đặc tả các Use Case chính
+269: a. Đăng ký tài khoản
+270: Tác nhân: Người dùng chưa xác thực.
+271: Mục tiêu: Tạo tài khoản để sử dụng hệ thống.
+272: Tiền điều kiện: Người dùng chưa đăng nhập và truy cập được trang đăng ký.
+273: Luồng chính:
+274: Người dùng mở trang đăng ký.
+275: Người dùng nhập họ tên, tên cửa hàng, email, mật khẩu và xác nhận mật khẩu.
+276: Hệ thống kiểm tra tính hợp lệ của thông tin và tính duy nhất của email.
+277: Hệ thống mã hóa mật khẩu và lưu tài khoản.
+278: Hệ thống xác thực người dùng bằng tài khoản vừa tạo.
+279: Luồng ngoại lệ: Thông tin không hợp lệ, email đã tồn tại hoặc xác nhận mật khẩu không khớp; hệ thống thông báo và yêu cầu điều chỉnh.
+280: Hậu điều kiện: Tài khoản được tạo thành công và có thể sử dụng các chức năng dành cho người dùng đã xác thực.
+281: b. Đăng nhập
+282: Tác nhân: Người dùng chưa xác thực.
+283: Mục tiêu: Truy cập hệ thống bằng tài khoản đã đăng ký.
+284: Tiền điều kiện: Người dùng có tài khoản hợp lệ.
+285: Luồng chính:
+286: Người dùng mở trang đăng nhập.
+287: Người dùng nhập email và mật khẩu.
+288: Hệ thống kiểm tra thông tin xác thực.
+289: Hệ thống tạo phiên đăng nhập và cho phép truy cập các chức năng được bảo vệ.
+290: Luồng ngoại lệ: Thông tin xác thực không chính xác hoặc người dùng vượt giới hạn số lần đăng nhập; hệ thống thông báo lỗi tương ứng.
+291: Hậu điều kiện: Người dùng được xác thực và chỉ có thể truy cập dữ liệu thuộc tài khoản của mình.
+292: c. Quản lý bộ dữ liệu
+293: Tác nhân: Người dùng đã xác thực.
+294: Mục tiêu: Tạo và lựa chọn bộ dữ liệu dùng cho việc nhập liệu, thống kê và phân tích.
+295: Tiền điều kiện: Người dùng đã đăng nhập.
+296: Luồng chính:
+297: Người dùng truy cập chức năng quản lý dữ liệu.
+298: Hệ thống hiển thị danh sách bộ dữ liệu thuộc tài khoản.
+299: Người dùng nhập tên để tạo bộ dữ liệu mới hoặc chọn bộ dữ liệu đã có.
+300: Hệ thống kiểm tra thông tin và quyền sở hữu.
+301: Hệ thống ghi nhận bộ dữ liệu đang được chọn trong phiên làm việc.
+302: Luồng ngoại lệ: Tên bộ dữ liệu không hợp lệ, bộ dữ liệu không tồn tại hoặc không thuộc tài khoản; hệ thống từ chối thao tác.
+303: Hậu điều kiện: Bộ dữ liệu làm việc được xác định cho các chức năng tiếp theo.
+304: d. Nhập dữ liệu bán hàng
+305: Tác nhân: Người dùng đã xác thực.
+306: Mục tiêu: Bổ sung dữ liệu bán hàng vào bộ dữ liệu đang sử dụng.
+307: Tiền điều kiện: Người dùng đã đăng nhập và có bộ dữ liệu thuộc tài khoản.
+308: Luồng chính:
+309: Người dùng chọn bộ dữ liệu và loại dữ liệu cần nhập: khách hàng, sản phẩm, đơn hàng, chi tiết đơn hàng hoặc thanh toán.
+310: Người dùng tải lên tệp CSV, TSV, XLSX, XLS hoặc ODS.
+311: Hệ thống kiểm tra tệp và cấu trúc các cột.
+312: Hệ thống kiểm tra từng dòng theo quy tắc của loại dữ liệu, bao gồm trường bắt buộc, định dạng, giá trị trùng lặp và các liên kết dữ liệu cần thiết.
+313: Hệ thống ghi dữ liệu trong giao dịch cơ sở dữ liệu.
+314: Hệ thống thông báo số bản ghi đã lưu và hiển thị danh sách dữ liệu tương ứng.
+315: Luồng ngoại lệ: Tệp rỗng, sai định dạng, thiếu cột, chứa dữ liệu không hợp lệ hoặc thiếu bản ghi liên kết. Hệ thống thông báo nguyên nhân, kèm vị trí dòng hoặc ô khi xác định được. Nếu lỗi xảy ra trong quá trình ghi, giao dịch được hoàn tác.
+316: Hậu điều kiện: Khi thành công, dữ liệu được lưu vào đúng bộ dữ liệu đã chọn; khi thất bại, các thay đổi trong giao dịch nhập không được lưu.
+317: e. Xem tổng quan kinh doanh
+318: Tác nhân: Người dùng đã xác thực.
+319: Mục tiêu: Theo dõi tình hình kinh doanh thông qua các chỉ số tổng hợp và biểu đồ.
+320: Tiền điều kiện: Người dùng đã đăng nhập và có bộ dữ liệu thuộc tài khoản.
+321: Luồng chính:
+322: Người dùng truy cập trang tổng quan và chọn bộ dữ liệu.
+323: Hệ thống kiểm tra quyền truy cập bộ dữ liệu.
+324: Hệ thống tổng hợp số đơn hàng, số khách hàng, tổng giá trị thanh toán, giá trị thanh toán trung bình trên đơn có thanh toán và tỷ lệ giao hàng thành công.
+325: Hệ thống hiển thị thống kê theo tháng, trạng thái đơn hàng, phương thức thanh toán và các danh mục có tổng giá trị hàng bán cao.
+326: Người dùng xem các chỉ số và biểu đồ để đánh giá tình hình kinh doanh.
+327: Luồng thay thế: Khi chưa có bộ dữ liệu hoặc dữ liệu còn thiếu, hệ thống hiển thị trạng thái tương ứng; các chỉ số được tính từ dữ liệu hiện có.
+328: Hậu điều kiện: Người dùng xem được kết quả tổng hợp trong phạm vi bộ dữ liệu đã chọn.
+329: f. Phân tích luật kết hợp
+330: Tác nhân: Người dùng đã xác thực.
+331: Mục tiêu: Phát hiện các danh mục sản phẩm thường xuất hiện cùng nhau trong đơn hàng.
+332: Tiền điều kiện: Người dùng đã đăng nhập; bộ dữ liệu có đơn hàng, chi tiết đơn hàng và thông tin danh mục sản phẩm liên kết để hình thành giỏ hàng hợp lệ.
+333: Luồng chính:
+334: Người dùng mở chức năng phân tích luật kết hợp và chọn bộ dữ liệu.
+335: Người dùng thiết lập ngưỡng Support, Confidence và Lift.
+336: Hệ thống kiểm tra tham số và quyền truy cập.
+337: Hệ thống tái dựng giỏ hàng theo đơn hàng, loại bỏ đơn bị hủy hoặc không khả dụng và các mục không có danh mục hợp lệ.
+338: Hệ thống tính các luật có dạng A → B giữa hai danh mục và lọc theo ngưỡng.
+339: Hệ thống hiển thị số giỏ hàng, số danh mục và danh sách luật cùng các chỉ số Support, Confidence, Lift và số lần đồng xuất hiện.
+340: Luồng ngoại lệ: Tham số không hợp lệ hoặc bộ dữ liệu không thuộc quyền truy cập; hệ thống từ chối xử lý.
+341: Luồng thay thế: Không có giỏ hàng hợp lệ hoặc không có luật đạt ngưỡng; hệ thống hiển thị kết quả rỗng tương ứng.
+342: Hậu điều kiện: Kết quả được lưu để tái sử dụng theo bộ dữ liệu, phiên bản dữ liệu và bộ ngưỡng. Khi nhập lại dữ liệu đơn hàng, chi tiết đơn hàng hoặc sản phẩm, kết quả phân tích cũ bị vô hiệu hóa.
+343: g. Phân tích phân khúc khách hàng
+344: Tác nhân: Người dùng đã xác thực.
+345: Mục tiêu: Phân nhóm khách hàng để hỗ trợ hoạt động chăm sóc và tiếp thị.
+346: Tiền điều kiện: Người dùng đã đăng nhập; bộ dữ liệu có khách hàng liên kết với đơn hàng hợp lệ. Dữ liệu thanh toán được sử dụng để tính giá trị chi tiêu.
+347: Luồng chính:
+348: Người dùng mở chức năng phân khúc khách hàng và chọn bộ dữ liệu.
+349: Người dùng chọn ngày tham chiếu hoặc sử dụng ngày mặc định từ dữ liệu.
+350: Hệ thống tính ba chỉ số: Recency – thời gian từ lần mua gần nhất đến ngày tham chiếu; Frequency – số đơn hàng; Monetary – tổng giá trị thanh toán.
+351: Hệ thống chấm điểm và phân khách hàng thành sáu nhóm: giá trị cao, trung thành, mới, có nguy cơ rời bỏ, ít hoạt động và tiềm năng.
+352: Hệ thống hiển thị số khách hàng, tổng giá trị thanh toán của từng nhóm và danh sách chi tiết.
+353: Người dùng lọc theo phân khúc, tìm kiếm theo mã khách hàng hoặc sắp xếp theo chỉ số RFM.
+354: Luồng ngoại lệ: Ngày tham chiếu hoặc điều kiện lọc không hợp lệ; hệ thống thông báo lỗi.
+355: Luồng thay thế: Không có khách hàng đủ điều kiện phân tích; hệ thống hiển thị kết quả rỗng.
+356: Hậu điều kiện: Khi xác định được ngày tham chiếu, hệ thống lưu toàn bộ kết quả phân khúc trước khi lọc và phân trang. Kết quả cùng bộ dữ liệu và ngày tham chiếu được thay thế khi chạy lại; kết quả ở các ngày khác được giữ nguyên.
+357: h.  Xem gợi ý sản phẩm
+358: Tác nhân: Người dùng đã xác thực.
+359: Mục tiêu: Xác định những danh mục có thể đề xuất mua kèm với lựa chọn hiện tại.
+360: Tiền điều kiện: Người dùng đã đăng nhập và có bộ dữ liệu đủ điều kiện phân tích luật kết hợp.
+361: Luồng chính:
+362: Người dùng mở chức năng gợi ý sản phẩm và chọn bộ dữ liệu.
+363: Người dùng thiết lập ngưỡng phân tích và chọn một hoặc nhiều danh mục làm cơ sở gợi ý.
+364: Hệ thống kiểm tra tham số và các lựa chọn trong phạm vi bộ dữ liệu.
+365: Hệ thống tìm các luật có vế trái thuộc lựa chọn của người dùng và vế phải chưa được chọn.
+366: Hệ thống loại bỏ gợi ý trùng lặp, xếp hạng theo Lift, Confidence và số lần đồng xuất hiện.
+367: Hệ thống hiển thị tối đa 10 danh mục gợi ý cùng các chỉ số liên quan.
+368: Luồng ngoại lệ: Tham số không hợp lệ hoặc lựa chọn không thuộc bộ dữ liệu hiện tại; hệ thống thông báo lỗi.
+369: Luồng thay thế: Người dùng chưa chọn danh mục hoặc không có luật phù hợp; hệ thống chưa hiển thị danh sách gợi ý.
+370: Hậu điều kiện: Khi người dùng có lựa chọn, kết quả gợi ý được lưu hoặc đọc lại từ kết quả đã lưu để tái sử dụng. Khi chưa chọn danh mục, hệ thống trả danh sách gợi ý rỗng và không tạo lượt lưu gợi ý.
+371: 3.6. Sơ đồ hoạt động
+372: Các luồng hoạt động được chia theo nhập liệu, chạy phân tích và tạo gợi ý. Điểm kiểm soát quan trọng là kiểm tra quyền trước khi đọc dữ liệu và kiểm tra hợp lệ trước khi ghi. Mỗi luồng phải xác định rõ trạng thái thành công, thất bại và điều kiện kết thúc.
+373: 3.6.1. Quy trình nhập và kiểm tra dữ liệu
+374: Bắt đầu → xác thực đăng nhập → chọn bộ dữ liệu → tải tệp lên → kiểm tra định dạng và kích thước tệp → kiểm tra quyền sở hữu bộ dữ liệu → đọc tệp và kiểm tra tiêu đề cột → mở giao dịch → duyệt từng dòng, chuẩn hóa giá trị, kiểm tra kiểu dữ liệu, khóa trùng và các khóa tham chiếu theo từng loại dữ liệu → ghi theo lô → commit giao dịch → chuyển hướng kèm thông báo thành công.
+375: Nếu có lỗi trước khi mở giao dịch, hệ thống trả thông báo và không ghi dữ liệu. Nếu có lỗi trong quá trình xử lý giao dịch, toàn bộ thay đổi của lần nhập được rollback. Với dữ liệu đơn hàng, chi tiết đơn hàng và sản phẩm, hệ thống đồng thời vô hiệu hóa kết quả phân tích đã lưu trong giao dịch.
+376: Chức năng xem trước dữ liệu chưa được triển khai và dự kiến bổ sung trước bước ghi dữ liệu.
+377: 3.6.2. Quy trình chạy phân tích
+378: Bắt đầu → chọn bộ dữ liệu và thiết lập ngưỡng Support, Confidence, Lift → kiểm tra tham số và quyền sở hữu bộ dữ liệu → kiểm tra kết quả đã lưu theo phiên bản dữ liệu và các ngưỡng phân tích.
+379: Nếu có kết quả phù hợp, đọc lại kết quả. Nếu chưa có: lọc đơn hàng và danh mục hợp lệ → loại trùng danh mục trong từng giỏ → đếm tổng giỏ và số giỏ chứa từng danh mục → đếm các cặp danh mục, lọc theo Support tối thiểu → tính Support, Confidence và Lift cho luật theo hai chiều → lọc theo Confidence và Lift → sắp xếp → lưu kết quả.
+380: Cuối cùng, phân trang và hiển thị. Khi tổng số giỏ hợp lệ bằng 0, trả tập luật rỗng để tránh chia cho 0.
+381: 3.6.3. Quy trình tạo gợi ý bán kèm
+382: Bắt đầu → chọn các nhóm sản phẩm trong giỏ hàng mô phỏng và ngưỡng phân tích → kiểm tra dữ liệu đầu vào → lấy các luật đạt ngưỡng, được sắp theo Lift, Confidence và số giỏ mua cùng → lọc luật có tiền đề thuộc nhóm đã chọn → loại hệ quả đã có trong giỏ → loại trùng hệ quả, giữ luật phù hợp có thứ hạng cao nhất → lấy tối đa 10 gợi ý → lưu hoặc đọc lại kết quả đã lưu → hiển thị gợi ý cùng các chỉ số làm bằng chứng → kết thúc.
+383: Kiểm tra hàng khả dụng, xác nhận thử nghiệm của người quản lý và lưu lý do loại đề xuất là các chức năng dự kiến bổ sung.
+384: 3.7. Sơ đồ tuần tự cho các chức năng chính
+385: Luồng phân tích luật kết hợp: Trình duyệt gửi GET /basket-analysis/rules → middleware kiểm tra đăng nhập → AssociationRuleRequest kiểm tra tham số và ngưỡng phân tích → controller lấy danh sách bộ dữ liệu → DatasetContext xác định bộ dữ liệu và kiểm tra quyền sở hữu → controller gọi AssociationRules. Service mở giao dịch và kiểm tra kết quả đã lưu theo phiên bản dữ liệu và các ngưỡng: nếu có thì đọc lại; nếu chưa có thì truy vấn số đếm, tính và lọc luật, sau đó lưu lượt phân tích và các luật vào cơ sở dữ liệu → controller phân trang → Blade kết xuất kết quả.
+386: Luồng nhập dữ liệu, minh họa với đơn hàng: Trình duyệt gửi POST /orders/import kèm tệp → middleware kiểm tra đăng nhập → controller kiểm tra tệp → DatasetContext xác định bộ dữ liệu và kiểm tra quyền sở hữu → OrderFileReader đọc tệp → controller kiểm tra tiêu đề cột → mở giao dịch, vô hiệu hóa kết quả phân tích cũ, kiểm tra từng dòng và ghi dữ liệu theo lô → commit khi thành công hoặc rollback khi có lỗi → chuyển hướng kèm thông báo thành công hoặc lỗi.
+387: Các luồng trên hiện được xử lý bằng PHP/Laravel. Luồng gọi Python chỉ bổ sung khi được tích hợp thực tế; sơ đồ hiện tại cần thể hiện cơ chế lưu và tái sử dụng kết quả phân tích đã có.
+388: 3.8. Thiết kế kiến trúc hệ thống
+389: Kiến trúc hiện tại gồm lớp giao diện Blade, lớp điều phối controller và FormRequest, lớp dịch vụ nghiệp vụ cùng lớp dữ liệu quan hệ. DatasetContext là điểm dùng chung để xác định bộ dữ liệu hợp lệ. AssociationRules và HomeAnalytics tách phép phân tích khỏi controller.
+390: Kiến trúc mở rộng bổ sung hàng đợi và worker Python sau lớp dịch vụ. Worker chỉ nhận dữ liệu thuộc phiên được cấp phép và trả kết quả theo hợp đồng cố định. Laravel vẫn chịu trách nhiệm kiểm tra quyền, theo dõi phiên chạy và trình bày kết quả. Kiến trúc xử lý của hệ thống được thể hiện qua hình 3.2.
+391: 
+392: 
+393: Hình 3.2. Kiến trúc xử lý của hệ thống
+394: 3.9. Thiết kế cơ sở dữ liệu
+395: Cơ sở dữ liệu của hệ thống được thiết kế theo mô hình quan hệ, gồm các nhóm thực thể quản lý tài khoản và bộ dữ liệu, lưu trữ dữ liệu kinh doanh, lưu kết quả phân tích và hỗ trợ vận hành. Các dữ liệu nghiệp vụ được tổ chức theo từng bộ dữ liệu thông qua thuộc tính dataset_id, giúp phân tách dữ liệu và kiểm soát quyền truy cập theo tài khoản.
+396: 3.9.1. Sơ đồ thực thể – liên kết
+397: Một người dùng sở hữu nhiều bộ dữ liệu. Trong từng bộ dữ liệu, một khách hàng có thể liên kết với nhiều đơn hàng; một đơn có nhiều dòng hàng và nhiều dòng thanh toán; một sản phẩm xuất hiện ở nhiều dòng hàng. Mọi liên kết nghiệp vụ phải mang cùng dataset_id để bảo đảm cô lập dữ liệu.
+398: 
+399: Hình 3.3. Quan hệ giữa các thực thể nghiệp vụ
+400: 3.9.2. Mô tả các thực thể trong ERD
+401: Các thực thể được mô tả dưới dạng tên bảng và danh sách thuộc tính. Ký hiệu PK chỉ khóa chính, FK chỉ khóa ngoại; các thuộc tính cùng được đánh dấu PK trong một bảng tạo thành khóa chính ghép.
+402: users (user_id [PK], shop_name, owner_name, email, password_hash, created_at, remember_token): Lưu thông tin tài khoản, cửa hàng và thông tin xác thực của người dùng.
+403: datasets (dataset_id [PK], user_id [FK], name, description, created_at, updated_at, rules_version, rules_filters, recommendation_context): Quản lý bộ dữ liệu, chủ sở hữu, thông tin mô tả và ngữ cảnh phân tích gần nhất.
+404: customers (dataset_id [PK, FK], customer_id [PK], customer_unique_id, customer_zip_code_prefix, customer_city, customer_state): Lưu thông tin khách hàng trong từng bộ dữ liệu. Thuộc tính customer_unique_id được sử dụng để tổng hợp lịch sử mua hàng của cùng một khách hàng khi phân tích RFM.
+405: products (dataset_id [PK, FK], product_id [PK], product_category_name, product_name_length, product_description_length, product_photos_qty, product_weight_g, product_length_cm, product_height_cm, product_width_cm): Lưu danh mục và các thuộc tính mô tả sản phẩm.
+406: orders (dataset_id [PK, FK], order_id [PK], customer_id [FK], order_status, order_approved_at, order_delivered_carrier_date, order_delivered_customer_date, order_estimated_delivery_date, order_purchase_timestamp): Lưu thông tin đơn hàng, khách hàng đặt mua, trạng thái và các mốc thời gian xử lý, giao hàng.
+407: order_items (dataset_id [PK, FK], order_id [PK, FK], order_item_id [PK], product_id [FK], shipping_limit_date, price, freight_value): Lưu từng dòng sản phẩm trong đơn hàng, gồm giá bán, phí vận chuyển và hạn giao cho đơn vị vận chuyển.
+408: order_payments (dataset_id [PK, FK], order_id [PK, FK], payment_sequential [PK], payment_type, payment_installments, payment_value): Lưu các bản ghi thanh toán của đơn hàng, gồm thứ tự thanh toán, phương thức, số kỳ trả góp và giá trị thanh toán.
+409: import_logs (import_id [PK], dataset_id [FK], uploaded_by [FK], data_type, original_filename, stored_path, status, total_rows, success_rows, failed_rows, skipped_rows, error_message, error_file_path, started_at, finished_at, created_at, updated_at): Được thiết kế để ghi nhận tệp nguồn, người thực hiện, trạng thái nhập dữ liệu, số dòng xử lý và thông tin lỗi.
+410: association_rules (rule_id [PK], user_id [FK], dataset_id [FK], antecedent_category_name, consequent_category_name, support, confidence, lift, created_at, pair_count): Lưu các luật kết hợp ở cấp danh mục, gồm tiền đề, hệ quả, số giỏ cùng xuất hiện và các chỉ số đánh giá.
+411: bundle_recommendations (bundle_id [PK], user_id [FK], dataset_id [FK], main_product_id [FK], related_product_id [FK], confidence, lift, discount_rate, expected_revenue, status, created_at, main_category_name, related_category_name, support, pair_count, rank): Lưu kết quả đề xuất bán kèm mới nhất theo bộ dữ liệu. Chức năng hiện tại sử dụng các thuộc tính danh mục, thứ hạng và chỉ số đánh giá; các trường tham chiếu sản phẩm, mức giảm giá và doanh thu kỳ vọng được giữ trong cấu trúc bảng.
+412: customer_segments (dataset_id [PK, FK], analysis_date [PK], customer_unique_id [PK], last_purchase, recency, frequency, monetary, r_score, f_score, m_score, segment, analyzed_at): Lưu kết quả phân khúc khách hàng theo bộ dữ liệu và ngày phân tích, gồm các giá trị RFM, điểm số và tên phân khúc.
+413: sessions (id [PK], user_id [FK], ip_address, user_agent, payload, last_activity): Lưu phiên truy cập, phục vụ duy trì trạng thái đăng nhập của người dùng.
+414: Bảng migrations (id [PK], migration, batch) phục vụ quản lý phiên bản cấu trúc cơ sở dữ liệu của Laravel và không được đưa vào sơ đồ ERD nghiệp vụ.
+415: 3.9.3. Mô hình ERD
+416: Mô hình ERD thể hiện các thực thể, thuộc tính và mối quan hệ trong hệ thống. Một người dùng có thể sở hữu nhiều bộ dữ liệu. Trong mỗi bộ dữ liệu, một khách hàng có thể có nhiều đơn hàng; mỗi đơn hàng có nhiều dòng chi tiết và bản ghi thanh toán; một sản phẩm có thể xuất hiện trong nhiều dòng chi tiết đơn hàng.
+417: Các kết quả khai phá luật kết hợp, gợi ý sản phẩm và phân khúc khách hàng được lưu theo từng bộ dữ liệu. Những quan hệ tham chiếu đến khách hàng, đơn hàng và sản phẩm sử dụng khóa ghép có dataset_id để bảo đảm các bản ghi liên quan thuộc cùng một bộ dữ liệu. Cơ sở dữ liệu của hệ thống được thể hiện qua mô hình ERD tại hình 3.2.
+418: 
+419: Hình 3.4. Mô hình ERD
+420: 3.10. Thiết kế giao diện
+421: Giao diện hệ thống được thiết kế gồm các nhóm chức năng: tài khoản, quản lý bộ dữ liệu, quản lý dữ liệu nghiệp vụ, Dashboard, luật kết hợp, phân khúc khách hàng và gợi ý bán kèm.
+422: Bố cục chung gồm thanh điều hướng, vùng xác định bộ dữ liệu đang chọn và vùng nội dung chính. Tên bộ dữ liệu cần được hiển thị rõ để người dùng nhận biết phạm vi dữ liệu đang xem và thao tác.
+423: Các màn hình quản lý dữ liệu bố trí vùng chọn tệp, hướng dẫn cấu trúc dữ liệu, bảng danh sách và thông báo kết quả xử lý. Dashboard bố trí các thẻ chỉ số tổng quan và biểu đồ phân bố, kèm đơn vị và mô tả cách tính.
+424: Màn hình luật kết hợp gồm vùng chọn bộ dữ liệu, ba trường nhập ngưỡng Support, Confidence, Lift và nút thực hiện phân tích. Phần kết quả hiển thị số giỏ hàng hợp lệ, số danh mục, số luật đạt ngưỡng và bảng chi tiết luật. Màn hình phân khúc khách hàng bố trí các bộ lọc và bảng kết quả RFM. Màn hình gợi ý bán kèm gồm vùng chọn danh mục đầu vào và vùng hiển thị đề xuất cùng các chỉ số làm căn cứ.
+425: 3.11. Tổng kết chương
+426: Thiết kế lấy bộ dữ liệu làm đơn vị quản lý và phân quyền. Luồng nhập liệu, phân tích và trình bày kết quả được tách thành các thành phần có trách nhiệm rõ ràng. Những yêu cầu chưa triển khai được giữ ở trạng thái thiết kế để làm căn cứ phát triển và đánh giá sau này.
+427: CHƯƠNG 4. XÂY DỰNG HỆ THỐNG
+428: 4.1. Môi trường phát triển và cấu trúc mã nguồn
+429: Cấu hình composer.json hiện khai báo PHP ^8.3, Laravel ^13.17, Breeze ^2.4 và PhpSpreadsheet ^5.10. Đây là ràng buộc phiên bản, không thay thế phiên bản cài đặt chính xác trong composer.lock. Mã nguồn được tổ chức ở app/Http/Controllers, app/Services, resources/views, routes, database/migrations và tests.
+430: Môi trường máy khảo sát có PHP CLI 8.4.0 và Composer 2.9.5. Cần bổ sung hệ điều hành, phiên bản MySQL, CPU, RAM và cấu hình triển khai vào biên bản thực nghiệm. Không đưa nội dung .env chứa thông tin bí mật vào phụ lục.
+431: 4.2. Giao diện chung và thanh điều hướng
+432: Giao diện Web Analyst được thiết kế theo bố cục gồm hai khu vực chính: thanh điều hướng nằm bên trái và vùng nội dung làm việc nằm bên phải. Bố cục này được sử dụng thống nhất giữa các trang, giúp người dùng dễ dàng chuyển đổi chức năng trong quá trình quản lý và phân tích dữ liệu. Giao diện sử dụng nền sáng, các đường phân cách nhẹ và biểu tượng đi kèm tên chức năng để hỗ trợ nhận diện.
+433: Thanh điều hướng được tổ chức thành bốn nhóm:
+434: Phân tích dữ liệu: gồm Tổng quan kinh doanh, Khách hàng, Sản phẩm, Đơn hàng, Chi tiết đơn hàng và Doanh thu. Nhóm này cho phép người dùng theo dõi số liệu tổng hợp và tra cứu dữ liệu kinh doanh.
+435: Phân tích giỏ hàng: gồm Luật kết hợp và Gợi ý sản phẩm, phục vụ khám phá các danh mục thường được mua cùng nhau và đề xuất bán kèm.
+436: Khách hàng: cung cấp chức năng Phân khúc khách hàng, hỗ trợ phân nhóm dựa trên các chỉ số RFM.
+437: Hệ thống: gồm Dữ liệu và Tài khoản, cho phép quản lý bộ dữ liệu và thông tin tài khoản. Nút Đăng xuất được bố trí ở phía dưới thanh điều hướng để kết thúc phiên làm việc.
+438: Vùng nội dung bên phải thay đổi theo chức năng được lựa chọn. Mỗi trang hiển thị tiêu đề, các thành phần thao tác và kết quả tương ứng dưới dạng bảng, thẻ chỉ số hoặc biểu đồ. Tại trang Tổng quan kinh doanh, người dùng có thể chọn bộ dữ liệu cần phân tích và nhấn nút Xem để cập nhật số liệu. Bộ dữ liệu đang chọn được sử dụng làm ngữ cảnh cho các thao tác tra cứu và phân tích tiếp theo.
+439: Cách tổ chức giao diện này giúp người dùng tiếp cận các chức năng theo từng nhóm nghiệp vụ, đồng thời dành phần lớn không gian màn hình cho việc quan sát dữ liệu và kết quả phân tích.
+440: 
+441: 
+442: Hình 4.1. Bố cục giao diện và thanh điều hướng của hệ thống.
+443: 4.3. Xây dựng chức năng nhập và hiển thị dữ liệu
+444: Chức năng nhập dữ liệu cho phép người dùng đưa dữ liệu từ tệp vào hệ thống để phục vụ việc quản lý, thống kê và phân tích. Hệ thống hỗ trợ năm nhóm dữ liệu: khách hàng, sản phẩm, đơn hàng, chi tiết đơn hàng và thanh toán. Mỗi nhóm được xử lý bởi một controller riêng, lần lượt là CustomerImportController, ProductImportController, OrderImportController, OrderItemImportController và OrderPaymentImportController.
+445: Các controller sử dụng chung dịch vụ OrderFileReader để đọc nội dung tệp. Dịch vụ này cung cấp dữ liệu dưới dạng từng dòng thông qua Generator; controller tiếp nhận các dòng để chuẩn hóa, kiểm tra và ghi vào bảng tương ứng. Cách tổ chức này giúp dùng chung cơ chế đọc tệp, đồng thời duy trì các quy tắc kiểm tra riêng cho từng nhóm dữ liệu.
+446: Quy trình nhập gồm các bước: xác định bộ dữ liệu, kiểm tra tệp tải lên, đọc và kiểm tra tiêu đề, chuẩn hóa giá trị, kiểm tra tính hợp lệ và quan hệ tham chiếu, ghi dữ liệu theo lô, sau đó trả thông báo kết quả. Các tuyến nhập được đặt trong nhóm middleware auth, yêu cầu người dùng đăng nhập trước khi thực hiện.
+447: 4.3.1. Tạo và quản lý bộ dữ liệu
+448: Hệ thống sử dụng bộ dữ liệu để phân chia dữ liệu nghiệp vụ của từng người dùng. Mỗi bộ dữ liệu có mã định danh dataset_id và được liên kết với chủ sở hữu thông qua trường user_id. Các bản ghi được nhập vào hệ thống đều được gắn với bộ dữ liệu đã xác định.
+449: 
+450: DatasetController đảm nhiệm việc hiển thị danh sách, tạo mới và lựa chọn bộ dữ liệu. Khi truy cập trang quản lý, người dùng chỉ nhận được danh sách các bộ dữ liệu thuộc tài khoản đang đăng nhập. Khi tạo mới, tên bộ dữ liệu là trường bắt buộc, có kiểu chuỗi và độ dài tối đa 150 ký tự. Sau khi tạo thành công, hệ thống lưu mã bộ dữ liệu vào phiên làm việc để sử dụng cho các thao tác tiếp theo.
+451: Trước khi ghi dữ liệu, các controller nhập gọi phương thức resolve() của dịch vụ DatasetContext. Việc xác định bộ dữ liệu được thực hiện theo trình tự:
+452: Kiểm tra dataset_id trong yêu cầu; nếu được cung cấp, giá trị phải là số nguyên lớn hơn hoặc bằng 1.
+453: Sử dụng mã trong yêu cầu hoặc mã đang lưu trong phiên làm việc.
+454: Kiểm tra bộ dữ liệu có thuộc người dùng hiện tại hay không. Nếu không tồn tại hoặc không thuộc quyền sở hữu, hệ thống trả về mã lỗi 404.
+455: Nếu chưa có mã được chọn, hệ thống lấy bộ dữ liệu đầu tiên của người dùng theo thứ tự dataset_id và lưu lựa chọn vào phiên.
+456: Nếu người dùng chưa có bộ dữ liệu nào, yêu cầu nhập bị từ chối với mã lỗi 422 và thông báo cần tạo bộ dữ liệu trước khi nhập tệp.
+457: Ngoài ra, tại trang danh sách sản phẩm, nếu người dùng chưa có bộ dữ liệu, hệ thống chuyển hướng đến trang quản lý bộ dữ liệu. Như vậy, việc lưu lựa chọn trong phiên chỉ hỗ trợ duy trì ngữ cảnh làm việc; quyền sở hữu vẫn được kiểm tra khi sử dụng.
+458: 4.3.2. Tải tệp và hiển thị dữ liệu
+459: Luồng nhập sản phẩm kiểm tra tệp bắt buộc, danh sách đuôi cho phép và giới hạn 51.200 KB. File được mở qua bộ đọc thay vì tin trực tiếp vào tên tệp. Bước xem trước dữ liệu trên giao diện là yêu cầu có ích nhưng chưa được xác nhận trong luồng hiện tại; khi bổ sung, cần dùng cùng quy tắc chuẩn hóa với bước ghi chính thức.
+460: Người dùng thực hiện nhập dữ liệu tại trang tương ứng với từng nhóm thông tin. Biểu mẫu sử dụng phương thức POST, kiểu mã hóa multipart/form-data, có mã bảo vệ CSRF và trường ẩn dataset_id để xác định bộ dữ liệu tiếp nhận.
+461: Cả năm luồng nhập đều yêu cầu có tệp tải lên, cho phép các phần mở rộng csv, tsv, xlsx, xls, ods và giới hạn dung lượng ở mức 51.200 KB, tương ứng mức 50 MB được ghi trên giao diện. Tại trang sản phẩm, khi người dùng chọn tệp, JavaScript hiển thị tên và dung lượng, đồng thời đặt thông báo không hợp lệ nếu tệp vượt quá giới hạn. Phía máy chủ tiếp tục kiểm tra tệp để bảo đảm yêu cầu vẫn được kiểm soát khi bỏ qua kiểm tra trên trình duyệt.
+462: Dịch vụ OrderFileReader xử lý tệp theo từng định dạng:
+463: 
+464: Đối với tệp bảng tính, hệ thống chỉ đọc trang tính đầu tiên. Nếu phát hiện ô chứa công thức, quá trình nhập bị từ chối và thông báo chỉ rõ tọa độ ô cần sửa. Người dùng phải chuyển công thức thành giá trị trước khi nhập. Các ô số được nhận diện là ngày giờ được chuyển về dạng Y-m-d H:i:s để phục vụ bước kiểm tra tiếp theo.
+465: Mặc dù dịch vụ trả dữ liệu theo từng dòng, đối với tệp bảng tính, thư viện vẫn tải bảng tính bằng phương thức load(). Vì vậy, cơ chế này không đồng nghĩa với việc tất cả định dạng đều được đọc hoàn toàn theo luồng với mức sử dụng bộ nhớ cố định.
+466: Sau khi lưu , bảng dữ liệu hiển thị tối đa 100 bản ghi đã lưu trong bộ dữ liệu đang chọn, còn các chỉ số tổng quan được tính trên toàn bộ dữ liệu của bộ đó. Đây là phần hiển thị dữ liệu trong cơ sở dữ liệu. 
+467: 
+468: 4.3.3. Kiểm tra cấu trúc và tính hợp lệ
+469: Kiểm tra tiêu đề và cấu trúc tệp
+470: Dòng đầu tiên được sử dụng làm tiêu đề. Hệ thống loại bỏ khoảng trắng ở đầu và cuối tên cột, đồng thời loại bỏ ký tự BOM UTF-8 ở đầu tên cột đầu tiên.
+471: Sau bước chuẩn hóa, hệ thống từ chối tiêu đề có tên cột trùng nhau hoặc thiếu cột bắt buộc. Số cột yêu cầu theo từng nhóm gồm: khách hàng 5 cột, sản phẩm 9 cột, đơn hàng 8 cột, chi tiết đơn hàng 6 cột và thanh toán 5 cột.
+472: Các cột được ánh xạ theo tên nên không bắt buộc giữ nguyên thứ tự. Mã nguồn hiện tại cho phép tệp có thêm cột ngoài danh sách yêu cầu; những cột này không được đưa vào bản ghi lưu trữ. Tuy nhiên, mỗi dòng dữ liệu không rỗng phải có số trường bằng số cột của tiêu đề.
+473: Chuẩn hóa giá trị
+474: Đối với từng dòng, hệ thống bỏ qua dòng mà tất cả giá trị đều rỗng hoặc chỉ chứa khoảng trắng. Các giá trị còn lại được loại bỏ khoảng trắng ở đầu và cuối; chuỗi rỗng được chuyển thành null trước khi kiểm tra.
+475: Việc chuyển giá trị rỗng thành null không có nghĩa mọi trường đều được phép thiếu dữ liệu. Các trường có quy tắc required vẫn bị từ chối nếu không có giá trị; chỉ những trường được khai báo nullable mới chấp nhận null.
+476: Một số trường được xử lý bổ sung. Chẳng hạn, ở luồng sản phẩm, các giá trị như 3.0 hoặc 3.00 được chuẩn hóa thành 3 đối với các thuộc tính yêu cầu số nguyên. Ở luồng khách hàng, tiền tố mã bưu chính gồm từ một đến năm chữ số được chuyển về biểu diễn số nguyên trước khi kiểm tra.
+477: Kiểm tra theo từng nhóm dữ liệu
+478: Các quy tắc chính được áp dụng như sau:
+479: 
+480: Các trường thập phân nói trên có giá trị tối đa 99.999.999,99. Việc kiểm tra được thực hiện bằng Laravel Validator; khi một dòng không hợp lệ, hệ thống trả thông báo kèm số dòng và lỗi kiểm tra đầu tiên của dòng đó.
+481: Kiểm tra quan hệ tham chiếu
+482: Ngoài kiểu dữ liệu và miền giá trị, hệ thống kiểm tra sự tồn tại của các bản ghi liên quan trong cùng dataset_id:
+483: Khi nhập đơn hàng, khách hàng được tham chiếu bởi customer_id phải tồn tại.
+484: Khi nhập chi tiết đơn hàng, order_id phải tồn tại. Nếu product_id có giá trị, sản phẩm tương ứng cũng phải tồn tại.
+485: Khi nhập thanh toán, đơn hàng được tham chiếu phải tồn tại.
+486: Do đó, trình tự nhập phù hợp là nhập khách hàng và sản phẩm trước, tiếp theo nhập đơn hàng, sau đó nhập chi tiết đơn hàng và thanh toán. Cơ chế này giúp tránh tham chiếu đến dữ liệu chưa có hoặc dữ liệu thuộc bộ khác.
+487: 4.3.4. Nhập dữ liệu vào cơ sở dữ liệu
+488: Sau khi kiểm tra tiêu đề, hệ thống xử lý các dòng dữ liệu trong DB::transaction(). Mỗi bản ghi hợp lệ được bổ sung dataset_id, đưa vào mảng tạm và ghi vào cơ sở dữ liệu khi đạt 500 bản ghi. Khi kết thúc tệp, phần dữ liệu còn lại được ghi bằng một lô cuối cùng.
+489: Trước mỗi lần ghi, phương thức insertBatch() kiểm tra dữ liệu trùng và các quan hệ tham chiếu cần thiết. Nếu thỏa mãn điều kiện, hệ thống sử dụng Query Builder để chèn cả lô bằng phương thức insert(). Việc ghi theo lô giúp giảm số lần thực hiện câu lệnh chèn so với cách ghi riêng từng bản ghi.
+490: Toàn bộ các lô của một tệp nằm trong cùng một giao dịch. Ví dụ, nếu tệp có 1.200 dòng dữ liệu và hệ thống đã ghi hai lô đầu tiên, nhưng một dòng trong phần còn lại không hợp lệ, giao dịch sẽ hoàn tác cả hai lô đã ghi. Vì vậy, một lần nhập chỉ thành công khi toàn bộ dữ liệu được chấp nhận.
+491: Tệp rỗng hoặc tệp chỉ có tiêu đề và các dòng trắng đều bị từ chối. Trong mỗi controller, hệ thống cũng gọi set_time_limit(300) để đặt giới hạn thời gian thực thi PHP cho quá trình xử lý.
+492: Đối với nhập sản phẩm, đơn hàng và chi tiết đơn hàng, hệ thống còn gọi AssociationRules::invalidate() trong giao dịch. Thao tác này xóa các luật kết hợp và gợi ý mua kèm đã lưu của bộ dữ liệu, đồng thời cập nhật trạng thái liên quan, tránh tiếp tục sử dụng kết quả phân tích được tạo từ dữ liệu cũ.
+493: Sau khi giao dịch thành công, hệ thống chuyển về trang dữ liệu tương ứng và hiển thị số bản ghi đã lưu, chẳng hạn: “Đã lưu 1.200 sản phẩm”.
+494: 4.3.5. Xử lý lỗi, dữ liệu trùng và lịch sử nhập
+495: Hệ thống phát hiện dữ liệu trùng theo khóa nhận diện của từng nhóm và giới hạn việc kiểm tra trong bộ dữ liệu đang nhập.
+496: Trong mỗi lô, hệ thống lưu khóa nhận diện cùng số dòng để phát hiện trùng giữa các dòng đang xử lý. Trước khi chèn, hệ thống tiếp tục truy vấn cơ sở dữ liệu để kiểm tra khóa đã tồn tại. Cách kiểm tra này cũng phát hiện bản ghi trùng với những lô đã được chèn trước đó trong cùng giao dịch.
+497: Chức năng hiện tại thực hiện thêm mới dữ liệu. Khi gặp khóa trùng, hệ thống từ chối lần nhập; không tự động cập nhật, ghi đè hoặc bỏ qua bản ghi đó.
+498: Các lỗi được chủ động kiểm tra gồm: thiếu tệp, phần mở rộng không được hỗ trợ, tệp vượt giới hạn, không đọc được bảng tính, ô chứa công thức, tiêu đề không hợp lệ, số trường không khớp, giá trị sai quy tắc, khóa trùng và thiếu bản ghi tham chiếu. Với các lỗi liên quan đến dòng dữ liệu, thông báo có số dòng để người dùng xác định vị trí cần sửa. Riêng lỗi công thức trong bảng tính được thông báo theo tọa độ ô.
+499: Quá trình nhập dừng khi gặp lỗi được phát hiện đầu tiên, thay vì tiếp tục quét để tổng hợp toàn bộ lỗi của tệp. Nếu lỗi xảy ra trong giao dịch, các thay đổi cơ sở dữ liệu của lần nhập được hoàn tác. Người dùng cần sửa tệp và thực hiện nhập lại.
+500: Trong phạm vi mã nguồn đã đối chiếu, chưa có cơ chế lưu lịch sử nhập chuyên biệt gồm tên tệp, mã băm, người thực hiện, thời gian bắt đầu và kết thúc, trạng thái xử lý cùng thống kê lỗi. Thông báo thành công được lưu tạm trong phiên để hiển thị sau khi chuyển trang, nên chưa đáp ứng yêu cầu truy vết đầy đủ các lần nhập. Chức năng lịch sử nhập vì vậy nên được trình bày là hướng phát triển tiếp theo.
+501: 4.4. Xây dựng chức năng  khai phá luật kết hợp
+502: Chức năng phân tích luật kết hợp được xây dựng nhằm hỗ trợ người dùng xác định các danh mục sản phẩm thường được mua cùng nhau trong đơn hàng. Người dùng lựa chọn bộ dữ liệu, thiết lập các ngưỡng phân tích và xem kết quả trực tiếp trên giao diện web. Kết quả có thể được sử dụng để tham khảo khi xây dựng combo và đề xuất bán chéo.
+503: Chức năng được triển khai tại đường dẫn /basket-analysis/rules, gồm ba thành phần chính: AssociationRuleController tiếp nhận yêu cầu, dịch vụ AssociationRules xử lý phân tích và giao diện association_rules.blade.php hiển thị kết quả. Các tham số đầu vào được kiểm tra thông qua AssociationRuleRequest.
+504: 4.4.1. Xây dựng giao diện phân tích
+505: Giao diện được chia thành bốn khu vực: thiết lập tham số, thống kê tổng quan, bảng kết quả và hướng dẫn đọc các chỉ số.
+506: Phần đầu trang hiển thị tiêu đề “Luật kết hợp” cùng mô tả mục đích phân tích giỏ hàng. Ngay bên dưới là biểu mẫu cho phép người dùng lựa chọn bộ dữ liệu và nhập các ngưỡng phân tích. Các thành phần được đặt trong từng khối riêng, giúp người dùng theo dõi trình tự từ thiết lập đến xem kết quả.
+507: [Chèn ảnh toàn bộ giao diện luật kết hợp tại đây]
+508: Hình 4.2. Giao diện chức năng phân tích luật kết hợp.
+509: Trên màn hình lớn, các trường thiết lập được bố trí theo hàng ngang. Khi chiều rộng màn hình giảm, các trường được chuyển xuống nhiều hàng; trên thiết bị nhỏ, chúng được xếp thành một cột. Bảng kết quả có vùng cuộn ngang để người dùng xem đầy đủ thông tin khi màn hình không đủ rộng.
+510: 4.4.2. Lựa chọn bộ dữ liệu và nhập tham số
+511: Khu vực thiết lập gồm danh sách chọn bộ dữ liệu, ba ô nhập ngưỡng và nút “Phân tích”.
+512: [Chèn ảnh khu vực chọn bộ dữ liệu và nhập ngưỡng tại đây]
+513: Hình 4.3. Khu vực thiết lập tham số phân tích luật kết hợp.
+514: Các trường số có giới hạn ngay trên giao diện. Phía máy chủ tiếp tục kiểm tra bằng AssociationRuleRequest: Support từ 0,01% đến 100%, Confidence từ 0% đến 100% và Lift từ 0 đến 1.000. Nếu giá trị không hợp lệ, hệ thống hiển thị danh sách lỗi phía trên biểu mẫu và giữ lại giá trị đã nhập để người dùng sửa.
+515: Trước khi phân tích, DatasetContext xác định bộ dữ liệu đang chọn và kiểm tra quyền sở hữu. Người dùng chỉ được phân tích dữ liệu thuộc tài khoản của mình. Nếu chưa có bộ dữ liệu, hệ thống chuyển đến trang quản lý dữ liệu.
+516: 4.4.3. Xử lý dữ liệu và tạo luật kết hợp
+517: Khi người dùng nhấn “Phân tích”, biểu mẫu gửi yêu cầu POST đến controller. Controller lấy các tham số hợp lệ và gọi dịch vụ AssociationRules để thực hiện xử lý.
+518: Dữ liệu đầu vào được lấy từ ba bảng orders, order_items và products. Các bảng được liên kết bằng mã nghiệp vụ và dataset_id, bảo đảm dữ liệu dùng để phân tích thuộc cùng một bộ.
+519: Trong quá trình chuẩn bị dữ liệu, hệ thống thực hiện các bước:
+520: Loại các đơn có trạng thái canceled hoặc unavailable.
+521: Lấy danh mục sản phẩm từ trường product_category_name.
+522: Bỏ các dòng không có danh mục hoặc có danh mục chỉ chứa khoảng trắng.
+523: Gộp các danh mục trùng nhau trong cùng đơn, để mỗi danh mục chỉ được tính một lần.
+524: Xác định tổng số giỏ hợp lệ và số giỏ chứa từng cặp danh mục.
+525: Mỗi đơn hàng được xem là một giỏ. Ví dụ, nếu một đơn có ba sản phẩm thuộc danh mục A và một sản phẩm thuộc danh mục B, hệ thống chỉ ghi nhận giỏ đó chứa hai danh mục A và B. Những đơn còn một danh mục hợp lệ vẫn được tính vào tổng số giỏ, nhưng không tạo thành cặp để sinh luật.
+526: Từ các cặp danh mục, hệ thống xét hai chiều A → B và B → A, tính Support, Confidence, Lift và chỉ giữ các luật thỏa mãn đồng thời ba ngưỡng người dùng đã thiết lập. Hai chiều có thể có Confidence khác nhau nên có thể chỉ một chiều đạt yêu cầu.
+527: Phạm vi triển khai hiện tại là luật một danh mục dẫn đến một danh mục. Vì vậy, kết quả thể hiện mối liên hệ giữa các danh mục sản phẩm, chưa phải giữa từng mã sản phẩm riêng lẻ.
+528: 4.4.4. Hiển thị thống kê và bảng kết quả
+529: Sau khi phân tích, hệ thống chuyển về trang kết quả. Phía trên bảng hiển thị ba chỉ số tổng quan:
+530: Trong giao diện hiện tại, chỉ số thứ hai đang mang nhãn “Tên sản phẩm”, trong khi dữ liệu xử lý thực tế là danh mục sản phẩm. Khi trình bày báo cáo, cần giải thích đúng ý nghĩa này; có thể điều chỉnh nhãn giao diện thành “Danh mục sản phẩm” để thống nhất.
+531: Hình 4.4. Thống kê tổng quan và kết quả phân tích luật kết hợp.
+532: Bảng kết quả được đặt dưới tiêu đề “Nếu mua A → thường mua B”, gồm các cột:
+533: Support và Confidence được hiển thị dưới dạng phần trăm với hai chữ số thập phân. Lift cũng được làm tròn đến hai chữ số thập phân và đặt trong ô màu để dễ nhận biết.
+534: Các luật được sắp xếp theo Lift giảm dần, tiếp theo là Confidence và số giỏ mua cùng giảm dần. Cách sắp xếp này đưa các luật có mức liên hệ cao lên đầu danh sách để người dùng xem xét.
+535: Bảng được phân trang với 25 luật mỗi trang. Các liên kết chuyển trang giữ nguyên bộ dữ liệu đang chọn. Khác với những trang hiển thị dữ liệu nhập chỉ giới hạn 100 dòng, trang luật kết hợp có điều khiển phân trang để duyệt kết quả.
+536: Phía dưới bảng, giao diện có ba khối giải thích ngắn về Support, Confidence và Lift. Nội dung này hỗ trợ người dùng hiểu các cột kết quả mà không cần rời khỏi trang phân tích.
+537: Cuối trang có phần mô tả quy tắc xử lý giỏ hàng, bao gồm cách tính mỗi danh mục một lần trong một đơn, các trạng thái đơn bị loại và phạm vi luật một phần tử dẫn đến một phần tử.
+538: 4.4.5. Lưu kết quả và bảo đảm tính nhất quán
+539: Kết quả phân tích được lưu trong bảng association_rules, bao gồm bộ dữ liệu, người sở hữu, danh mục ở hai vế, số giỏ mua cùng, Support, Confidence, Lift và thời điểm tạo. Các ngưỡng đã sử dụng được lưu tại trường rules_filters của bảng datasets.
+540: Mỗi lần phân tích, hệ thống thay thế tập luật cũ của bộ dữ liệu bằng kết quả mới. Toàn bộ quá trình tính toán và cập nhật được thực hiện trong giao dịch cơ sở dữ liệu. Các luật được chèn theo lô tối đa 250 bản ghi.
+541: Khi người dùng mở lại trang, hệ thống đọc kết quả đã lưu và khôi phục các ngưỡng tương ứng. Việc tính toán lại chỉ được thực hiện khi người dùng nhấn “Phân tích”.
+542: Nếu nhập thêm sản phẩm, đơn hàng hoặc chi tiết đơn hàng, hệ thống xóa kết quả luật kết hợp đã lưu của bộ dữ liệu đó. Cơ chế này yêu cầu người dùng phân tích lại sau khi dữ liệu nguồn thay đổi, giúp tránh sử dụng kết quả cũ cho dữ liệu mới.
+543: 4.5. Xây dựng chức năng gợi ý sản phẩm
+544: Chức năng gợi ý sản phẩm cho phép người dùng tạo giỏ hàng mô phỏng và nhận đề xuất các nhóm sản phẩm thường được mua cùng với những nhóm đã chọn. Chức năng sử dụng dữ liệu đơn hàng trong bộ dữ liệu đang làm việc để tạo gợi ý, hỗ trợ tham khảo khi xây dựng combo và bán chéo.
+545: Mặc dù giao diện sử dụng tên “Gợi ý sản phẩm”, đối tượng xử lý thực tế là danh mục sản phẩm, lấy từ trường product_category_name. Kết quả hiện tại đề xuất nhóm sản phẩm, chưa xác định từng mã sản phẩm cụ thể.
+546: 4.5.1. Xây dựng giao diện gợi ý sản phẩm
+547: Giao diện gồm hai khu vực chính: tạo giỏ hàng mô phỏng và hiển thị đề xuất. Phía đầu trang là tiêu đề “Gợi ý sản phẩm”, kèm mô tả hướng dẫn người dùng chọn các nhóm sản phẩm để tìm những nhóm thường được mua cùng.
+548: Khu vực tạo giỏ chứa ô tìm kiếm, danh sách lựa chọn dạng checkbox, phần thiết lập ngưỡng và các nút thao tác. Khu vực kết quả được đặt bên dưới, giúp người dùng thực hiện theo trình tự chọn mặt hàng, yêu cầu gợi ý và xem đề xuất.
+549: 
+550: Hình 4.5. Giao diện chức năng gợi ý sản phẩm.
+551: Các khu vực được đặt trong khối nền trắng, có đường viền và góc bo tròn. Trên màn hình lớn, danh sách lựa chọn được chia thành ba cột và các thẻ gợi ý được bố trí thành hai cột. Khi chiều rộng màn hình nhỏ hơn 700 px, các thành phần chuyển thành một cột để thuận tiện thao tác.
+552: 4.5.2. Tìm kiếm và tạo giỏ hàng mô phỏng
+553: Khi mở trang, hệ thống xác định bộ dữ liệu đang sử dụng thông qua DatasetContext và kiểm tra quyền sở hữu. Nếu tài khoản chưa có bộ dữ liệu, người dùng được chuyển đến trang quản lý dữ liệu.
+554: Danh sách có thể lựa chọn được lấy từ các danh mục xuất hiện trong giỏ hàng hợp lệ của bộ dữ liệu hiện tại. Vì vậy, danh sách này không đơn thuần lấy toàn bộ danh mục trong bảng sản phẩm, mà dựa trên dữ liệu bán hàng đủ điều kiện phân tích.
+555: Người dùng nhập tên vào ô “Tìm sản phẩm” để thu hẹp danh sách, sau đó đánh dấu checkbox của các nhóm muốn đưa vào giỏ mô phỏng.
+556: 
+557: Hình 4.6. Tìm kiếm và lựa chọn nhóm sản phẩm cho giỏ hàng mô phỏng.
+558: Việc tìm kiếm được thực hiện bằng JavaScript ngay trên danh sách đã tải về. Nội dung tìm kiếm được chuyển về chữ thường và loại bỏ dấu tiếng Việt trước khi so khớp. Nhờ đó, người dùng có thể tìm mà không cần nhập đúng chữ hoa, chữ thường hoặc dấu.
+559: Giao diện hiển thị tối đa 20 lựa chọn khớp với nội dung tìm kiếm, đồng thời luôn giữ lại các mục đã chọn để người dùng dễ kiểm tra giỏ hàng. Danh sách nằm trong vùng có thanh cuộn nhằm hạn chế chiều cao biểu mẫu.
+560: Mỗi giỏ mô phỏng được chọn tối đa 50 nhóm sản phẩm. Dòng trạng thái bên dưới ô tìm kiếm hiển thị số lượng đã chọn theo dạng “Đã chọn …/50 mặt hàng”. Khi đạt giới hạn, các checkbox chưa chọn bị vô hiệu hóa; người dùng vẫn có thể bỏ chọn để điều chỉnh giỏ.
+561: Phía máy chủ tiếp tục kiểm tra số lượng, độ dài và tính duy nhất của các giá trị. Hệ thống cũng kiểm tra các mục gửi lên có thuộc danh sách hợp lệ của bộ dữ liệu hiện tại hay không.
+562: 4.5.3. Thiết lập ngưỡng và thực hiện gợi ý
+563: Phần “Ngưỡng gợi ý” được xây dựng dưới dạng có thể mở rộng hoặc thu gọn. Cách bố trí này giúp giao diện tập trung vào thao tác chọn mặt hàng, đồng thời vẫn cho phép người dùng điều chỉnh điều kiện tạo gợi ý.
+564: Các tham số gồm:
+565: 
+566: 
+567: Hình 4.7. Thiết lập các ngưỡng tạo gợi ý.
+568: Bên dưới biểu mẫu có hai nút thao tác:
+569: Khi đầu vào không hợp lệ, hệ thống hiển thị danh sách lỗi phía trên biểu mẫu và giữ lại các lựa chọn đã nhập để người dùng điều chỉnh.
+570: Việc thay đổi checkbox hoặc ngưỡng chưa tự động cập nhật kết quả. Người dùng cần nhấn “Gợi ý” để hệ thống thực hiện tính toán lại.
+571: 4.5.4. Xử lý và lựa chọn kết quả gợi ý
+572: Khi nhận yêu cầu hợp lệ, dịch vụ ProductRecommendations gọi AssociationRules::calculate() để tính các luật theo dữ liệu và ngưỡng hiện tại. Vì vậy, người dùng không bắt buộc phải chạy chức năng phân tích luật kết hợp trước khi tạo gợi ý.
+573: Từ tập luật đạt ngưỡng, hệ thống lựa chọn đề xuất theo các bước:
+574: Giữ những luật có danh mục ở vế trái thuộc giỏ mô phỏng.
+575: Loại những luật có danh mục ở vế phải đã được chọn trong giỏ.
+576: Giữ một đề xuất cho mỗi danh mục đích, tránh hiển thị trùng.
+577: Lấy tối đa 10 đề xuất theo thứ tự ưu tiên của các luật.
+578: Thứ tự ưu tiên là Lift giảm dần, sau đó Confidence và số giỏ mua cùng giảm dần. Khi nhiều danh mục trong giỏ cùng dẫn đến một danh mục đích, hệ thống giữ luật xuất hiện đầu tiên theo thứ tự này làm căn cứ giải thích.
+579: Ví dụ, người dùng chọn A và C, trong khi dữ liệu có các luật A → B và C → B đạt ngưỡng. Kết quả chỉ hiển thị một đề xuất B, sử dụng luật được xếp ưu tiên cao hơn. Nếu B đã có trong giỏ, hệ thống không tiếp tục đề xuất B.
+580: Cách xử lý hiện tại dựa trên từng danh mục đã chọn; hệ thống chưa tính một luật có toàn bộ giỏ nhiều danh mục làm vế trái và chưa cộng điểm từ nhiều luật.
+581: 4.5.5. Hiển thị và giải thích đề xuất
+582: Kết quả được trình bày trong khu vực “Đề xuất cho giỏ hàng của bạn”. Mỗi đề xuất là một thẻ riêng, gồm tên danh mục được gợi ý, lý do đề xuất và các chỉ số liên quan.
+583: 
+584: Hình 4.8. Kết quả gợi ý theo giỏ hàng mô phỏng.
+585: Nội dung của mỗi thẻ gồm:
+586: Phần giải thích sử dụng cách diễn đạt trực tiếp: “Vì bạn đã chọn A: …% giỏ có mặt hàng này cũng có B”. Cách trình bày giúp người dùng biết căn cứ của từng gợi ý mà không cần chuyển sang bảng luật kết hợp.
+587: Các giá trị Support, Confidence và Lift được hiển thị với hai chữ số thập phân. Giao diện hiển thị tối đa 10 đề xuất nên không sử dụng phân trang.
+588: Cuối trang có liên kết đến chức năng luật kết hợp trong cùng bộ dữ liệu, cho phép người dùng xem thêm kết quả phân tích và cách đọc các chỉ số.
+589: 4.5.6. Xử lý trạng thái chưa có kết quả
+590: Giao diện hiển thị thông báo phù hợp với từng trạng thái:
+591: 
+592: Hình 4.9. Thông báo khi không có đề xuất phù hợp với giỏ hàng.
+593: Các thông báo này giúp người dùng phân biệt giữa việc chưa tạo giỏ, thiếu dữ liệu nguồn và không có kết quả đáp ứng điều kiện.
+594: 4.5.7. Lưu trữ và cập nhật kết quả
+595: Quá trình tạo và lưu gợi ý được thực hiện trong giao dịch cơ sở dữ liệu. Hệ thống lưu các đề xuất tại bảng bundle_recommendations, gồm bộ dữ liệu, người sở hữu, danh mục nguồn, danh mục được gợi ý, các chỉ số, thứ hạng, trạng thái và thời điểm tạo.
+596: Giỏ mô phỏng cùng các ngưỡng được lưu tại trường recommendation_context của bảng datasets. Khi mở lại trang, hệ thống khôi phục các lựa chọn và hiển thị kết quả đã lưu theo thứ hạng.
+597: Mỗi lần nhấn “Gợi ý”, tập kết quả cũ của bộ dữ liệu được thay thế bằng kết quả mới. Đây là kết quả gần nhất theo từng bộ dữ liệu, chưa phải lịch sử của nhiều lần gợi ý.
+598: Khi nhập thêm sản phẩm, đơn hàng hoặc chi tiết đơn hàng, hệ thống xóa kết quả gợi ý và ngữ cảnh đã lưu của bộ dữ liệu liên quan. Người dùng cần tạo lại giỏ mô phỏng và thực hiện gợi ý để kết quả phản ánh dữ liệu mới.
+599: 4.6. Xây dựng chức năng phân khúc khách hàng
+600: Chức năng phân khúc khách hàng giúp người dùng nhận biết các nhóm khách hàng có hành vi mua sắm khác nhau, từ đó tham khảo cách chăm sóc phù hợp. Hệ thống sử dụng lịch sử đơn hàng và thanh toán để tính các chỉ số RFM, sau đó phân nhóm bằng bộ quy tắc cố định. Đây là phương pháp phân nhóm theo quy tắc, chưa phải mô hình học máy hoặc mô hình dự báo hành vi. Kết quả được trình bày độc lập với chức năng gợi ý bán kèm.
+601: 4.6.1. Xây dựng giao diện phân khúc khách hàng
+602: Giao diện gồm năm khu vực: biểu mẫu thiết lập phân tích, các chỉ số tổng quan, phân bố khách hàng, bảng chi tiết và phần giải thích quy tắc phân nhóm.
+603: Đầu trang hiển thị tiêu đề “Phân khúc khách hàng”, kèm mô tả ngắn về ba tiêu chí được sử dụng: lần mua gần nhất, số đơn hàng và tổng thanh toán. Các khu vực được đặt trong những khối riêng để người dùng dễ theo dõi từ kết quả tổng quan đến từng khách hàng.
+604: 
+605: Hình 4.10. Giao diện chức năng phân khúc khách hàng.
+606: Trên màn hình lớn, biểu mẫu và các chỉ số tổng quan được bố trí theo ba cột; các thẻ phân khúc được chia thành hai cột. Khi chiều rộng màn hình nhỏ hơn 700 px, các thành phần chuyển thành một cột. Bảng khách hàng được đặt trong vùng cuộn ngang để giữ đầy đủ thông tin trên màn hình nhỏ.
+607: 4.6.2. Thiết lập phân tích và lọc danh sách
+608: Biểu mẫu đầu trang sử dụng phương thức GET, gồm các thành phần:
+609: 
+610: Hình 4.11. Lựa chọn bộ dữ liệu, ngày phân tích và điều kiện lọc khách hàng.
+611: Nếu để trống ngày phân tích, hệ thống sử dụng ngày mua mới nhất trong các đơn đủ điều kiện làm mốc. Cách xử lý này phù hợp với dữ liệu lịch sử, tránh sử dụng ngày hiện tại khiến thời gian kể từ lần mua cuối bị kéo dài ngoài phạm vi dữ liệu.
+612: CustomerSegmentRequest kiểm tra ngày theo định dạng Y-m-d, mã phân khúc theo danh sách được hỗ trợ và nội dung tìm kiếm tối đa 100 ký tự. Bộ dữ liệu được xác định qua DatasetContext và kiểm tra quyền sở hữu trước khi xử lý.
+613: Khi có lỗi đầu vào, giao diện hiển thị danh sách lỗi phía trên biểu mẫu. Nếu tài khoản chưa có bộ dữ liệu, người dùng được chuyển đến trang quản lý dữ liệu.
+614: 4.6.3. Tổng hợp dữ liệu mua hàng của khách hàng
+615: Hệ thống sử dụng dữ liệu từ các bảng customers, orders và order_payments. Các phép nối đều đối chiếu cả mã nghiệp vụ và dataset_id, bảo đảm dữ liệu được tổng hợp trong cùng bộ.
+616: Các khách hàng được nhận diện theo customer_unique_id. Những bản ghi có cùng mã này được tổng hợp thành một khách hàng phân tích, thay vì tách riêng theo từng customer_id.
+617: Dữ liệu đầu vào được xử lý theo các quy tắc:
+618: Chỉ sử dụng đơn hàng có ngày mua và có thời điểm mua đến hết ngày phân tích.
+619: Loại đơn có trạng thái canceled hoặc unavailable; các trạng thái khác, kể cả chưa xác định, vẫn được giữ.
+620: Bỏ khách hàng thiếu customer_unique_id hoặc có mã chỉ chứa khoảng trắng.
+621: Cộng các khoản thanh toán theo từng đơn trước khi tổng hợp theo khách hàng.
+622: Đơn chưa có thanh toán vẫn được tính vào số đơn, với giá trị thanh toán đóng góp bằng 0.
+623: Việc tổng hợp thanh toán theo đơn trước khi nối giúp tránh đếm một đơn thành nhiều lần khi đơn đó có nhiều khoản thanh toán.
+624: Sau bước xử lý, mỗi khách hàng có ba giá trị chính:
+625: 4.6.4. Chấm điểm và phân nhóm khách hàng
+626: Từ các giá trị đã tổng hợp, hệ thống quy đổi R, F và M về thang điểm từ 1 đến 5.
+627: Điểm R được xác định theo khoảng thời gian từ lần mua cuối:
+628: Điểm F bằng số đơn đối với khách có từ 1 đến 4 đơn; khách có từ 5 đơn trở lên được 5 điểm.
+629: Điểm M được xác định dựa trên các mốc phân vị 20%, 40%, 60% và 80% của tổng thanh toán trong tập khách hàng phân tích. Khách được tăng điểm khi giá trị thanh toán vượt các mốc này; trường hợp tổng thanh toán không lớn hơn 0 được 1 điểm. Do đó, các ngưỡng tiền phụ thuộc dữ liệu tại ngày phân tích.
+630: Hệ thống áp dụng các quy tắc phân nhóm theo thứ tự sau:
+631: Mỗi khách hàng thuộc nhóm đầu tiên thỏa mãn điều kiện. Ví dụ, khách đã được xếp vào nhóm giá trị cao sẽ không tiếp tục được tính vào nhóm trung thành.
+632: Các quy tắc được định nghĩa trong dịch vụ CustomerSegments; giao diện hiện tại chưa cung cấp chức năng chỉnh sửa ngưỡng phân nhóm.
+633: 4.6.5. Hiển thị chỉ số tổng quan và phân bố khách hàng
+634: Sau biểu mẫu, giao diện hiển thị ba chỉ số:
+635: Khách hàng phân tích: tổng số khách hàng đủ điều kiện.
+636: Tổng thanh toán: tổng giá trị thanh toán của tập khách hàng phân tích.
+637: Khách hàng giá trị cao: số khách được xếp vào nhóm giá trị cao.
+638: Giá trị tiền được hiển thị theo đơn vị của dữ liệu nguồn, không tự động quy đổi sang một loại tiền khác.
+639: Bên dưới là khu vực “Phân bố khách hàng”. Mỗi phân khúc được trình bày bằng một thẻ, gồm tên nhóm, số khách, tỷ lệ trên tổng số khách phân tích, tổng thanh toán và hướng chăm sóc tương ứng.
+640: 
+641: Hình 4.12. Thống kê tổng quan và phân bố khách hàng theo phân khúc.
+642: Tỷ trọng của mỗi nhóm được thể hiện bằng thanh ngang, giúp người dùng so sánh quy mô giữa các nhóm. Các hướng chăm sóc là nội dung hướng dẫn được hiển thị trên giao diện; chức năng này chưa tự động gửi ưu đãi hoặc thực hiện chiến dịch chăm sóc.
+643: Các chỉ số và thẻ phân bố luôn phản ánh toàn bộ khách hàng đủ điều kiện của bộ dữ liệu tại ngày phân tích. Bộ lọc phân khúc và tìm mã chỉ tác động đến bảng chi tiết bên dưới.
+644: 4.6.6. Hiển thị danh sách khách hàng theo phân khúc
+645: Bảng chi tiết giúp người dùng xem căn cứ phân nhóm của từng khách hàng. Tiêu đề bảng hiển thị số kết quả phù hợp với các bộ lọc hiện tại.
+646: 
+647: Hình 4.13. Danh sách khách hàng và kết quả chấm điểm phân khúc.
+648: Mặc định, danh sách được sắp xếp theo tổng thanh toán giảm dần. Tìm kiếm được thực hiện theo một phần mã khách hàng và không phân biệt chữ hoa, chữ thường.
+649: Bảng phân trang với 25 khách hàng mỗi trang. Liên kết chuyển trang giữ bộ dữ liệu, ngày phân tích và các điều kiện lọc để người dùng tiếp tục xem mà không phải thiết lập lại.
+650: Nếu không có khách hàng khớp bộ lọc, bảng hiển thị thông báo “Không có khách hàng phù hợp với bộ lọc”. Nếu toàn bộ tập phân tích không có khách đủ điều kiện, hệ thống hướng dẫn kiểm tra ngày mua, mã khách hàng duy nhất và dữ liệu đơn hàng, đồng thời cung cấp liên kết đến trang khách hàng.
+651: 4.6.7. Giải thích quy tắc và lưu kết quả phân tích
+652: Cuối trang là phần có thể mở rộng với tiêu đề “Cách tính RFM và quy tắc phân nhóm”. Khu vực này trình bày cách chấm điểm, thứ tự phân nhóm và các điều kiện dữ liệu được sử dụng. Việc đặt nội dung trong phần thu gọn giúp giao diện chính tập trung vào kết quả nhưng vẫn cho phép người dùng kiểm tra cách phân loại.
+653: 
+654: Hình 4.14. Hướng dẫn chấm điểm và quy tắc phân nhóm khách hàng.
+655: Khi trang được xử lý, hệ thống tính kết quả theo bộ dữ liệu và ngày phân tích, sau đó lưu bản chụp kết quả vào bảng customer_segments. Thông tin lưu gồm mã khách hàng duy nhất, ngày mua gần nhất, các giá trị R/F/M, điểm tương ứng, phân khúc và thời điểm phân tích.
+656: Việc lưu được thực hiện trước khi lọc và phân trang, nên bản chụp chứa toàn bộ khách hàng của lần phân tích. Nếu tính lại cùng bộ dữ liệu và cùng ngày, hệ thống thay thế kết quả của ngày đó; kết quả thuộc những ngày khác được giữ lại.
+657: Giao diện hiện tại hiển thị kết quả tính từ dữ liệu nguồn theo ngày đã chọn, chưa có màn hình riêng để so sánh sự thay đổi phân khúc giữa các bản chụp.
+658: 4.7. Xây dựng nhóm chức năng hệ thống
+659: Nhóm chức năng “Hệ thống” được bố trí trên thanh điều hướng bên trái, gồm hai mục “Dữ liệu” và “Tài khoản”. Mục “Dữ liệu” hỗ trợ tạo và lựa chọn bộ dữ liệu làm việc. Mục “Tài khoản” cho phép người dùng cập nhật thông tin cá nhân, thông tin cửa hàng, đổi mật khẩu, đăng xuất và yêu cầu xóa tài khoản.
+660: Các trang này yêu cầu người dùng đăng nhập trước khi truy cập. Nội dung hiển thị và thao tác xử lý gắn với tài khoản đang sử dụng.
+661: 4.7.1. Chức năng quản lý bộ dữ liệu
+662: Giao diện quản lý bộ dữ liệu
+663: Khi chọn mục “Dữ liệu”, người dùng được chuyển đến đường dẫn /data. Trang hiển thị tiêu đề “Bộ dữ liệu của tôi”, biểu mẫu tạo mới và bảng danh sách các bộ dữ liệu thuộc tài khoản.
+664: Phía trên biểu mẫu có hướng dẫn chọn cùng một bộ dữ liệu khi nhập các nhóm dữ liệu liên quan. Nội dung này giúp người dùng duy trì đúng phạm vi dữ liệu cho các chức năng thống kê và phân tích.
+665: 
+666: Hình 4.15. Giao diện quản lý bộ dữ liệu.
+667: Biểu mẫu tạo mới gồm ô “Tên bộ dữ liệu” và nút “Tạo bộ dữ liệu”. Bên dưới là bảng có ba cột:
+668: Tiêu đề bảng sử dụng nền xanh đậm, các dòng có màu nền xen kẽ và hiệu ứng khi đưa chuột vào để hỗ trợ quan sát. Bảng được đặt trong vùng cuộn ngang để vẫn xem được đầy đủ nội dung trên màn hình hẹp.
+669: Tạo bộ dữ liệu
+670: Người dùng nhập tên và nhấn “Tạo bộ dữ liệu”. Yêu cầu được gửi đến phương thức store() của DatasetController. Tên là trường bắt buộc, có kiểu chuỗi và độ dài tối đa 150 ký tự.
+671: Khi dữ liệu hợp lệ, hệ thống tạo bản ghi trong bảng datasets, lưu tên, mã người sở hữu và thời gian tạo, cập nhật. Bộ dữ liệu mới được tự động chọn bằng cách lưu dataset_id vào phiên làm việc.
+672: Sau khi hoàn tất, trang hiển thị thông báo “Đã tạo và chọn bộ dữ liệu”. Nếu có lỗi kiểm tra, thông báo xuất hiện phía trên biểu mẫu và tên đã nhập được giữ lại để người dùng chỉnh sửa.
+673: Lựa chọn bộ dữ liệu làm việc
+674: Mỗi dòng trong bảng có nút “Chọn và nhập dữ liệu”. Khi nhấn nút, hệ thống kiểm tra mã bộ dữ liệu và xác minh quyền sở hữu thông qua DatasetContext. Nếu hợp lệ, mã được lưu vào phiên và người dùng được chuyển đến trang khách hàng để bắt đầu nhập dữ liệu.
+675: Bộ hiện tại được đánh dấu “Đang chọn”; các bộ còn lại hiển thị “Đã lưu”. Nhờ đó, người dùng có thể nhận biết ngữ cảnh làm việc trước khi chuyển sang các trang nghiệp vụ.
+676: Nếu chưa có bộ dữ liệu, bảng hiển thị thông báo “Bạn chưa có bộ dữ liệu. Hãy tạo bộ đầu tiên để bắt đầu”. Phạm vi chức năng hiện tại gồm tạo, hiển thị và lựa chọn bộ dữ liệu; giao diện chưa cung cấp thao tác đổi tên hoặc xóa bộ dữ liệu.
+677: 4.7.2. Giao diện quản lý tài khoản
+678: Mục “Tài khoản” dẫn đến trang /profile. Đầu trang hiển thị tiêu đề “Tài khoản”, mô tả chức năng quản lý thông tin cửa hàng và bảo mật, cùng nút “Đăng xuất”.
+679: Bên dưới là thông tin tóm tắt gồm tên cửa hàng và ngày tham gia. Nội dung chính được chia thành hai khối: “Thông tin tài khoản” và “Đổi mật khẩu”. Phần “Xóa tài khoản” nằm riêng phía cuối trang.
+680: 
+681: Hình 4.16. Giao diện quản lý tài khoản.
+682: Trên màn hình lớn, hai biểu mẫu chính được đặt cạnh nhau để tận dụng không gian hiển thị. Khi chiều rộng nhỏ hơn 900 px, chúng chuyển thành một cột. Các trường nhập có nhãn rõ ràng, thông báo lỗi đặt ngay bên dưới và đường viền thay đổi khi trường không hợp lệ.
+683: Thông báo cập nhật thành công được hiển thị trong khối màu xanh phía trên các biểu mẫu, giúp người dùng nhận biết kết quả thao tác.
+684: 4.7.3. Cập nhật thông tin tài khoản
+685: Khối “Thông tin tài khoản” cho phép chỉnh sửa ba thông tin:
+686: Các ô nhập được điền sẵn thông tin hiện tại. Người dùng chỉnh sửa và nhấn “Lưu thay đổi” để gửi yêu cầu cập nhật đến ProfileController::update().
+687: 
+688: Hình 4.17. Biểu mẫu cập nhật thông tin cá nhân và cửa hàng.
+689: ProfileUpdateRequest kiểm tra dữ liệu trước khi lưu. Việc kiểm tra email duy nhất bỏ qua chính tài khoản đang chỉnh sửa, cho phép người dùng giữ nguyên địa chỉ email hiện tại.
+690: Nếu thành công, hệ thống trở về trang tài khoản và hiển thị “Đã cập nhật thông tin tài khoản”. Nếu dữ liệu không hợp lệ, biểu mẫu giữ lại các giá trị đã nhập và hiển thị lỗi tương ứng ngay dưới từng trường.
+691: 4.7.4. Thay đổi mật khẩu
+692: Khối “Đổi mật khẩu” gồm ba trường: mật khẩu hiện tại, mật khẩu mới và xác nhận mật khẩu mới. Các trường sử dụng kiểu nhập mật khẩu để che nội dung trên màn hình.
+693: Người dùng điền đủ thông tin và nhấn “Đổi mật khẩu”. Hệ thống kiểm tra mật khẩu hiện tại có đúng hay không, mật khẩu mới có đáp ứng quy tắc và phần xác nhận có trùng khớp hay không. Giao diện hướng dẫn mật khẩu mới có ít nhất 8 ký tự.
+694: 
+695: Hình 4.18. Giao diện thay đổi mật khẩu.
+696: Sau khi kiểm tra thành công, PasswordController sử dụng Hash::make() để băm mật khẩu mới và cập nhật vào trường password_hash. Hệ thống hiển thị thông báo đổi mật khẩu thành công, hướng dẫn sử dụng mật khẩu mới cho lần đăng nhập tiếp theo.
+697: Các lỗi như mật khẩu hiện tại không đúng hoặc xác nhận không khớp được hiển thị ngay dưới trường liên quan. Lỗi đổi mật khẩu được xử lý riêng để không nhầm với lỗi cập nhật thông tin tài khoản.
+698: 4.7.5. Đăng xuất tài khoản
+699: Người dùng có thể đăng xuất bằng nút ở góc trên trang tài khoản hoặc nút phía cuối thanh điều hướng. Các nút gửi yêu cầu POST đến tuyến đăng xuất và có mã bảo vệ CSRF.
+700: Việc bố trí nút đăng xuất ở cả trang tài khoản và thanh điều hướng giúp người dùng kết thúc phiên làm việc từ nhiều vị trí trong hệ thống.
+701: 4.7.6. Xóa tài khoản và kiểm tra dữ liệu liên quan
+702: Chức năng xóa tài khoản nằm cuối trang, được đặt trong khu vực có viền và tiêu đề màu đỏ. Nội dung mặc định được thu gọn; người dùng mở mục “Xóa tài khoản” để xem cảnh báo và biểu mẫu xác nhận.
+703: Giao diện yêu cầu nhập mật khẩu hiện tại. Khi nhấn “Xóa tài khoản vĩnh viễn”, trình duyệt tiếp tục hiển thị hộp thoại xác nhận trước khi gửi yêu cầu.
+704: 
+705: Hình 4.19. Khu vực xác nhận xóa tài khoản.
+706: Phía máy chủ kiểm tra mật khẩu và dữ liệu liên quan trước khi xóa. Nếu tài khoản còn sở hữu bộ dữ liệu, hệ thống từ chối và thông báo cần liên hệ quản trị viên để xử lý dữ liệu trước. Trường hợp còn liên kết dữ liệu khác làm phát sinh lỗi ràng buộc cơ sở dữ liệu, hệ thống cũng trả thông báo phù hợp.
+707: Nếu việc xóa thành công, hệ thống đăng xuất, hủy phiên làm việc, tạo lại mã CSRF và chuyển về trang chủ. Khi có lỗi, mục xóa tài khoản tự mở để người dùng nhìn thấy thông báo.
+708: Cách tổ chức này giúp người dùng quản lý tài khoản của mình, đồng thời tránh xóa tài khoản khi dữ liệu liên quan chưa được xử lý.
+709: 
+710: KẾT LUẬN VÀ HƯỚNG PHÁT TRIỂN
+711: 1. Kết quả đạt được
+712: Đồ án đã hình thành nền tảng ứng dụng web phục vụ quản lý và phân tích dữ liệu giao dịch. Các thành phần hiện có bao gồm xác thực, tổ chức bộ dữ liệu theo tài khoản, nhập liệu có kiểm tra, thống kê tổng quan và tính luật cặp danh mục. Bộ giao dịch minh họa xác định được kết quả kỳ vọng để kiểm chứng Support, Confidence và Lift.
+713: Việc nghiệm thu các chức năng cần dựa trên bản chạy và biên bản kiểm thử. Báo cáo phân biệt rõ bằng chứng từ mã nguồn với kết quả thực nghiệm chưa được thu thập để bảo đảm nội dung có thể đối chiếu.
+714: 2. Những hạn chế còn tồn tại
+715: Phạm vi khai phá hiện tại giới hạn ở cặp danh mục. Chưa có đủ bằng chứng hoàn thiện thành phần Python, lưu phiên phân tích, xuất kết quả và thử nghiệm combo. Các số liệu về quy mô, thời gian xử lý và hiệu quả kinh doanh cần được đo trước khi kết luận.
+716: Đặc điểm dữ liệu, danh mục thiếu và tỷ lệ giỏ ít mục có thể ảnh hưởng tính hữu ích của luật. Các đề xuất từ dữ liệu lịch sử chỉ nên được xem là ứng viên để kiểm tra trong bối cảnh vận hành thực tế.
+717: 3. Hướng phát triển
+718: Ưu tiên tiếp theo là hoàn thiện kiểm thử và thực nghiệm tái lập, bổ sung lưu phiên chạy cùng phiên bản dữ liệu và xuất kết quả có kiểm soát quyền. Sau đó mở rộng FP-Growth bằng Python, so sánh với kết quả SQL trên phạm vi cặp và đánh giá tập mục nhiều phần tử.
+719: Ở lớp ứng dụng, có thể bổ sung lọc thời gian, chọn cấp phân tích, điều kiện tồn kho và cơ chế thử nghiệm đề xuất. Khi dữ liệu tích lũy theo thời gian, cần theo dõi độ ổn định của luật và làm mới mô hình theo chính sách được xác định.
+720: TÀI LIỆU THAM KHẢO
+721: [1] R. Agrawal và R. Srikant, “Fast Algorithms for Mining Association Rules,” Proceedings of the 20th International Conference on Very Large Data Bases, tr. 487–499, 1994. https://rsrikant.com/papers/vldb94.pdf
+722: [2] J. Han, J. Pei và Y. Yin, “Mining Frequent Patterns without Candidate Generation,” ACM SIGMOD, 2000. https://sigmodrecord.org/2000/06/07/mining-frequent-patterns-without-candidate-generation/
+723: [3] Olist, Brazilian E-Commerce Public Dataset, Kaggle. https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce
+724: [4] D. Chauhan, “Market_Basket_Optimisation.csv,” Kaggle.  Market_Basket_Optimisation.csv. 
+725: [4] Mã nguồn dự án web_analyst: routes/web.php; app/Services/AssociationRules.php; app/Services/DatasetContext.php; app/Services/HomeAnalytics.php; app/Http/Requests/AssociationRuleRequest.php; các controller nhập dữ liệu; migrations và tests. Khảo sát ngày 25/10/2026.
+726: 
